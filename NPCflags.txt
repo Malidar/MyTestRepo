@@ -1,0 +1,7 @@
+Note to self:
+
+Use an int / bytes to represent the flags
+Create:
+	Flag constants that have values related to the bit they represent in the FLAG number
+
+const TAKING_FIRE = 0; // relates to bit 0 in the FLAG register of the npc
