@@ -2,6 +2,7 @@
 #define _NPC_H
 
 #include "ENTITY_BASE.H"
+#include "FLAG.H"
 
 struct Node
 {
@@ -17,8 +18,8 @@ private:
 protected:
 	PriQueue();
 	~PriQueue();
-	void add();
-	int get();
+	void push(int action);
+	int pop();
 };
 
 class Npc: public Entity_base
@@ -33,9 +34,10 @@ private:
 	//int bulletSpread;
 	//active animation
 	//current action?
-	unsigned int8 flag;		// flags of the npc holding conditions	
-	PriQueue priHIGH;			// Priority Queues keeping tasks
-	PriQueue priLOW;
+	//unsigned int flag;		// flags of the npc holding conditions	
+	int flag[NUM_FLAGS];
+	PriQueue* priHIGH;			// Priority Queues keeping tasks
+	PriQueue* priLOW;
 
 protected:
 	Npc();
@@ -51,5 +53,6 @@ protected:
 	
 	/* Action loop */
 	void action();
+};
 
 #endif
