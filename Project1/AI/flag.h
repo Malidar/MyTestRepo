@@ -1,6 +1,8 @@
 #ifndef _FLAG_H
 #define _FLAG_H
 
+const int NUM_FLAGS		= 16;
+
 /* CONDITONS */
 const int LOW_HEALTH	= 0;
 const int NO_AMMO			= 0; 
