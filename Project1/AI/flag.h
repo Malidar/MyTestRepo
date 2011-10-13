@@ -1,11 +1,18 @@
 #ifndef _FLAG_H
 #define _FLAG_H
 
-const int NUM_FLAGS		= 16;
+/* a=target variable, b=bit number to act upon 0-n */
+#define BIT_SET(a,b) ((a) |= (1<<(b)))
+#define BIT_CLEAR(a,b) ((a) &= ~(1<<(b)))
+#define BIT_TOGGLE(a,b) ((a) ^= (1<<(b)))
+#define BIT_CHECK(a,b) ((a) & (1<<(b)))
+
+
+const int NUM_FLAGS		= 16;		/* Array implementation */
 
 /* CONDITONS */
 const int LOW_HEALTH	= 0;
-const int NO_AMMO			= 0; 
+const int NO_AMMO			= 0;
 const int TAKING_FIRE = 0;
 const int FIRE				= 1;
 const int SEE_ENEMY		= 2;
