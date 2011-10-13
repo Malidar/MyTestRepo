@@ -110,7 +110,7 @@ int main()
 	return 0;
 }
 
-/**/
+/* Allocate Entity in the worldMatrix */
 void allocateEntity(Entity entity)
 {
 	int indexA, indexB;
