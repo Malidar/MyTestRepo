@@ -7,8 +7,12 @@
 #define BIT_TOGGLE(a,b) ((a) ^= (1<<(b)))
 #define BIT_CHECK(a,b) ((a) & (1<<(b)))
 
+/* FLAGS */
+const int NUM_FLAGS = 12;	// Array implementation
 
-const int NUM_FLAGS		= 16;		/* Array implementation */
+/* PRIORITY */
+const int HIGH_PRI		= 16;
+const int LOW_PRI			= 32;
 
 /* CONDITONS */
 const int LOW_HEALTH	= 0;
@@ -17,16 +21,22 @@ const int TAKING_FIRE = 0;
 const int FIRE				= 1;
 const int SEE_ENEMY		= 2;
 const int BLOCKED			= 3;
-const int ANIMATION1	= 4;
-const int ANIMATION2	= 5;
-const int MOVE_RUN		= 6;
-const int MOVE_JUMP		= 7;
+const int RUNNING			= 6;
+const int	JUMPING			= 7;
+const int IDLE				= 0;
 
-/* TASKS */
+/* TASKS */	/* ACTIONS */
 const int FACE_ENEMY	= 0;
+const int RELOAD			= 0;
+const int GOTO_WP			= 0;
 
 /* SCHEMES */
 const int HIDE				= 0;
-const int RELOAD			= 0;
+const int SEARCH			= 0;
+
+/* ANIMATIONS */
+const int ANIMATIONS	= 16;		
+const int ANIMATION1	= 4;
+const int ANIMATION2	= 5;
 
 #endif

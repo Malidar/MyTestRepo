@@ -29,17 +29,19 @@ public:
 class Npc: public Entity_base
 {
 private:
-	Entity3f position;
-	Entity3f waypoint;
 	int health;
 	int ammo;
 	int range;
 	//int bulletDamage;
 	//int bulletSpread;
 	//active animation
-	int currentAction;			
+	int currentAction;
+	//bool flag[NUM_FLAGS];		/* Array implementation */		// CHANGE FLAG TO ANIMATION	
 	//unsigned int flag;		// flags of the npc holding conditions
-	bool flag[NUM_FLAGS];		/* Array implementation */
+	//unsigned int animationFlag;
+	Entity3f position;			// Positioning inherited!
+	Entity3f facing;				// forward vector
+	Entity3f waypoint;
 	PriQueue* priHIGH;			// Priority Queues keeping tasks
 	PriQueue* priLOW;
 
@@ -50,12 +52,12 @@ protected:
 	Entity3f getPositon();
 	void setWaypoint(Entity3f wp);
 	/* Flag functions */
-	bool getFlag(int bit);
-	void setFlag(int bit);
-	void clearFlag(int bit);
-	int createFlagInt();		/* Array implementation */
-	/* Pri */
-	
+	//bool getFlag(int bit);
+	//void setFlag(int bit);
+	//void clearFlag(int bit);
+	//int createFlagInt();		/* Array implementation */
+	/* Priority */
+	void actionPri();	
 	/* Action loop */
 	void actionLoop();
 	void doAction(int action);

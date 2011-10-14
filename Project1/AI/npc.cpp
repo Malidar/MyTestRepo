@@ -68,40 +68,47 @@ void Npc::setWaypoint(Entity3f wp)
 }
 
 /* Flag functions */
-bool Npc::getFlag(int bit)
-{
-	return flag[bit];		/* Array implementation */
-	/* BIT_CHECK(flag,bit); */
-}
-
-void Npc::setFlag(int bit)
-{
-	flag[bit] = true;		/* Array implementation */
-	/* BIT_SET(flag,bit); */
-}
-
-void Npc::clearFlag(int bit)
-{
-	flag[bit] = false;		/* Array implementation */
-	/* BIT_CLEAR(flag,bit); */
-}
-
-/* Array implementation */
-int Npc::createFlagInt()
-{
-	int flagInt = 0;
-	int i;
-	for( i = 0; i < NUM_FLAGS; i++ )
-	{
-		if( flag[i] )		// If bit set
-		{
-			flagInt += pow( 2.0, i );
-		}
-	}
-	return flagInt;
-}
+//bool Npc::getFlag(int bit)
+//{
+//	return flag[bit];		/* Array implementation */
+//	/* BIT_CHECK(flag,bit); */
+//}
+//
+//void Npc::setFlag(int bit)
+//{
+//	flag[bit] = true;		/* Array implementation */
+//	/* BIT_SET(flag,bit); */
+//}
+//
+//void Npc::clearFlag(int bit)
+//{
+//	flag[bit] = false;		/* Array implementation */
+//	/* BIT_CLEAR(flag,bit); */
+//}
+//
+///* Array implementation */
+//int Npc::createFlagInt()
+//{
+//	int flagInt = 0;
+//	int i;
+//	for( i = 0; i < NUM_FLAGS; i++ )
+//	{
+//		if( flag[i] )		// If bit set
+//		{
+//			flagInt += pow( 2.0f, i );
+//		}
+//	}
+//	return flagInt;
+//}
 
 /* Pri */
+void actionPri()		// void setPriority( int action )
+{
+	// if leas significant bits put in priHIGH
+
+	// else put in priLOW
+
+}
 
 /* Action loop */
 void Npc::actionLoop()
@@ -109,14 +116,16 @@ void Npc::actionLoop()
 	if( !priHIGH->empty() )
 	{
 		// stop current, start high
-		currentAction = 0;
-		doAction( priHIGH->pop() );
+		currentAction = priHIGH->pop();
 	}
 	else
 	{
 		// continue, when done do next low
+		if( !currentAction )	// if done with the last action cA = 0
+			currentAction = priLOW->pop();
 	}
-
+	/* Do action assigned by the priQueue */
+	doAction( currentAction );
 }
 
 void Npc::doAction(int action)
