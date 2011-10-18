@@ -38,10 +38,11 @@ private:
 	int currentAction;
 	//bool flag[NUM_FLAGS];		/* Array implementation */		// CHANGE FLAG TO ANIMATION	
 	//unsigned int flag;		// flags of the npc holding conditions
-	//unsigned int animationFlag;
+	//unsigned int animationFlag;	// TO SEND
 	Entity3f position;			// Positioning inherited!
 	Entity3f facing;				// forward vector
 	Entity3f waypoint;
+	// Entity3f* link;			// waypoints...
 	PriQueue* priHIGH;			// Priority Queues keeping tasks
 	PriQueue* priLOW;
 
@@ -63,6 +64,7 @@ protected:
 	void doAction(int action);
 
 	/* Tasks/schemes... */
+	//void move(waypoint);
 };
 
 #endif

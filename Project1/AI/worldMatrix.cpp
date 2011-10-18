@@ -105,10 +105,10 @@ EntityList worldMatrix[DIVX][DIVY];
 /* Functions */
 void allocateEntity();
 
-int main()
-{
-	return 0;
-}
+//int main()
+//{
+//	return 0;
+//}
 
 /* Allocate Entity in the worldMatrix */
 void allocateEntity(Entity entity)

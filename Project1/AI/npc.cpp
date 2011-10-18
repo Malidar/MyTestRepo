@@ -64,7 +64,7 @@ Entity3f Npc::getPositon()
 
 void Npc::setWaypoint(Entity3f wp)
 {
-	position = wp;
+	waypoint = wp;
 }
 
 /* Flag functions */
