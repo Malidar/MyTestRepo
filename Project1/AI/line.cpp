@@ -5,9 +5,9 @@ struct Point
 {
 	int x, y;
 };
-
+/* Plot a line in 2D space */
 void f_plotLine(float x0, float y0, float x1, float y1);
-void bresenhamLine2(Point origin, Point end);
+void bresenhamLine2(Point source, Point dest);
 void bresenhamLine(int x0, int y0, int x1, int y1);
 
 //int main()
@@ -50,23 +50,23 @@ void f_plotLine(float x0, float y0, float x1, float y1)
 	}
 }
 
-void bresenhamLine2(Point origin, Point end)
+void bresenhamLine2(Point source, Point dest)
 {
-	Point nextPoint = origin;
+	Point nextPoint = source;
 	int dx, dy, sx, sy, err = 0, e2 = 0;
 	bool plot = true;
 
-	dx = abs(end.x - origin.x);					// Delta
-	dy = abs(end.y - origin.y);
-	if( origin.x < end.x )	sx = 1;			// Step
+	dx = abs(dest.x - source.x);					// Delta
+	dy = abs(dest.y - source.y);
+	if( source.x < dest.x )	sx = 1;			// Step
 	else					sx = -1;
-	if( origin.y < end.y ) sy = 1;
+	if( source.y < dest.y ) sy = 1;
 	else					sy = -1;
 
 	while( plot )
 	{
 		printf(" %d , %d \n",nextPoint.x,nextPoint.y);
-		if( nextPoint.x == end.x && nextPoint.y == end.y )  // termination flag
+		if( nextPoint.x == dest.x && nextPoint.y == dest.y )  // termination flag
 		{
 			plot = false;	
 		}

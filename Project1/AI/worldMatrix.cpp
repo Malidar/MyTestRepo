@@ -30,7 +30,7 @@ public:										//
 struct Node
 {
 	Vertex entityPos;
-	Entity entity;
+	Entity* entity;
 	Node* nextNode;
 };
 
@@ -52,13 +52,13 @@ public:
 		else
 			return false;
 	}
-	bool exist(Entity entity)
+	bool exist(Entity* entity)
 	{
 		Node* tempNode;
 		tempNode = head->nextNode;
 		if(!empty())
 		{
-			while( entity.name != tempNode->entity.name )
+			while( entity->name != tempNode->entity->name )
 			{
 				if(tempNode->nextNode != tail)
 				{
@@ -70,7 +70,7 @@ public:
 			return true;
 		}
 	}
-	void add(Entity newEntity)
+	void add(Entity* newEntity)
 	{
 		Node* newNode;
 		//entityPos = newEntity->position;
@@ -78,7 +78,7 @@ public:
 		newNode->nextNode = head->nextNode;
 		head->nextNode = newNode;
 	}
-	Entity get(Vertex Position) //Entity get()
+	Entity* get(Vertex Position) //Entity get()
 	{
 		Node* tempNode;
 		tempNode = head->nextNode;
@@ -103,7 +103,7 @@ public:
 EntityList worldMatrix[DIVX][DIVY];
 
 /* Functions */
-void allocateEntity();
+void allocateEntity(Entity entity);
 
 //int main()
 //{
@@ -124,7 +124,7 @@ void allocateEntity(Entity entity)
 	abcd[0] = entPos;
 	abcd[1].x = entPos.x + entVol.w;	abcd[1].y = entPos.y;
 	abcd[2].x = entPos.x + entVol.w;	abcd[2].y = entPos.y + entVol.l;
-	abcd[3].x = entPos.x;	abcd[3].y = entPos.y + entVol.l;
+	abcd[3].x = entPos.x;							abcd[3].y = entPos.y + entVol.l;
 
 	for( int i = 0; i < 4; i++ )
 	{
@@ -132,9 +132,9 @@ void allocateEntity(Entity entity)
 		indexA = ( abcd[i].x / WORLD_WIDTH ) * DIVX;	// (x / width) * dividant 
 		indexB = ( abcd[i].y / WORLD_HEIGHT ) * DIVY;
 		/* Add the entity to the matrix if it does not exist in that index */
-		if( !worldMatrix[indexA][indexB].exist( entity ) )
+		if( !worldMatrix[indexA][indexB].exist( &entity ) )
 		{
-			worldMatrix[indexA][indexB].add( entity );
+			worldMatrix[indexA][indexB].add( &entity );
 		}
 	}
 }

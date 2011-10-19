@@ -8,7 +8,7 @@ struct BoundingBox
 	Vector3i max, min;
 };
 /* Check if a point is inside a box */
-bool checkBox(BoundingBox box, Vector3i point)
+bool checkBox3D(BoundingBox box, Vector3i point)
 {
 	if(point.x < box.max.x && point.x > box.min.x)
 	{
@@ -18,6 +18,18 @@ bool checkBox(BoundingBox box, Vector3i point)
 			{
 				return true;
 			}
+		}
+	}
+	return false;
+}
+
+bool checkBox2D(BoundingBox box, Vector3i point)
+{
+	if(point.x < box.max.x && point.x > box.min.x)
+	{
+		if(point.y < box.max.y && point.y > box.min.y)
+		{
+			return true;
 		}
 	}
 	return false;

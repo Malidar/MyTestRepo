@@ -15,6 +15,7 @@ const int HIGH_PRI		= 16;
 const int LOW_PRI			= 32;
 
 /* CONDITONS */
+const int IDLE				= 0;
 const int LOW_HEALTH	= 0;
 const int NO_AMMO			= 0;
 const int TAKING_FIRE = 0;
@@ -23,12 +24,12 @@ const int SEE_ENEMY		= 2;
 const int BLOCKED			= 3;
 const int RUNNING			= 6;
 const int	JUMPING			= 7;
-const int IDLE				= 0;
+
 
 /* TASKS */	/* ACTIONS */
 const int FACE_ENEMY	= 0;
 const int RELOAD			= 0;
-const int GOTO_WP			= 0;
+const int MOVE				= 1;
 
 /* SCHEMES */
 const int HIDE				= 0;

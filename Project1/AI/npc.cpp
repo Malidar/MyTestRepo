@@ -132,7 +132,8 @@ void Npc::doAction(int action)
 {
 	switch( action )
 	{
-	case LOW_HEALTH:	break;
+	case IDLE:				break;
+	case MOVE:				break;
 	default:					break;
 	}
 }
