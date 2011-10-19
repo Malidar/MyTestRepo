@@ -1,7 +1,7 @@
 
 
 /* Constants */
-const int DIVX = 10;		// Dividant
+const int DIVX = 10;							// Dividant
 const int DIVY = 10;
 const int WORLD_WIDTH = 1200;			// World size
 const int WORLD_HEIGHT = 900;
@@ -47,7 +47,7 @@ public:
 	{}
 	bool empty()
 	{
-		if(head->nextNode == tail)
+		if( head->nextNode == tail )
 			return true;
 		else
 			return false;
@@ -56,11 +56,11 @@ public:
 	{
 		Node* tempNode;
 		tempNode = head->nextNode;
-		if(!empty())
+		if( !empty() )
 		{
 			while( entity->name != tempNode->entity->name )
 			{
-				if(tempNode->nextNode != tail)
+				if( tempNode->nextNode != tail )
 				{
 					tempNode = tempNode->nextNode;
 				}
@@ -82,12 +82,12 @@ public:
 	{
 		Node* tempNode;
 		tempNode = head->nextNode;
-		if(!empty())
+		if( !empty() )
 		{
-			while(tempNode->entityPos.x != Position.x && 
-						tempNode->entityPos.y != Position.y)
+			while( tempNode->entityPos.x != Position.x && 
+						 tempNode->entityPos.y != Position.y )
 			{
-				if(tempNode->nextNode != tail)
+				if( tempNode->nextNode != tail )
 				{
 					tempNode = tempNode->nextNode;	
 				}

@@ -10,11 +10,11 @@ struct BoundingBox
 /* Check if a point is inside a box */
 bool checkBox3D(BoundingBox box, Vector3i point)
 {
-	if(point.x < box.max.x && point.x > box.min.x)
+	if( point.x < box.max.x && point.x > box.min.x )
 	{
-		if(point.y < box.max.y && point.y > box.min.y)
+		if( point.y < box.max.y && point.y > box.min.y )
 		{
-			if(point.z < box.max.z && point.z > box.min.z)
+			if( point.z < box.max.z && point.z > box.min.z )
 			{
 				return true;
 			}
@@ -25,9 +25,9 @@ bool checkBox3D(BoundingBox box, Vector3i point)
 
 bool checkBox2D(BoundingBox box, Vector3i point)
 {
-	if(point.x < box.max.x && point.x > box.min.x)
+	if( point.x < box.max.x && point.x > box.min.x )
 	{
-		if(point.y < box.max.y && point.y > box.min.y)
+		if( point.y < box.max.y && point.y > box.min.y )
 		{
 			return true;
 		}

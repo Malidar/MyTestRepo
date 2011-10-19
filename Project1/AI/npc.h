@@ -37,8 +37,8 @@ private:
 	//active animation
 	int currentAction;
 	//bool flag[NUM_FLAGS];		/* Array implementation */		// CHANGE FLAG TO ANIMATION	
-	unsigned int conditionFlag;		// flags of the npc holding conditions
-	unsigned int animationFlag;	// TO SEND
+	unsigned int condiFlag;		// flags of the npc holding conditions
+	unsigned int animaFlag;	// TO SEND
 	Entity3f position;			// Positioning inherited!
 	Entity3f facing;				// forward vector
 	Entity3f waypoint;
@@ -52,18 +52,22 @@ protected:
 	/* Position manipulation */
 	Entity3f getPositon();
 	void setWaypoint(Entity3f wp);
+	// void addWaypoint(Entity3f wp);
 	/* Flag functions */
 	//bool getFlag(int bit);
 	//void setFlag(int bit);
 	//void clearFlag(int bit);
 	//int createFlagInt();		/* Array implementation */
 	/* Priority */
-	void actionPri();
+	void actionPri(int action);
 	/* Action loop */
 	void actionLoop();
 	void doAction(int action);
 
 	/* Tasks/schemes... */
+	void taskIdle();
+	void taskMove();
+	void taskStop();
 	//void move(waypoint);
 };
 

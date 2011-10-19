@@ -21,8 +21,8 @@ void line3D(int x1, int y1, int z1, int x2, int y2, int z2);
 
 int main()
 {
-	line3d(1,3,1,5,3,8);
-	line3D(1,3,1,5,3,8);
+	line3d(1,0,1,5,0,8);
+	line3D(1,0,1,5,0,8);
 	return 0;
 }
 

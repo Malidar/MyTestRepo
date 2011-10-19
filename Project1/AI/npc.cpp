@@ -102,11 +102,14 @@ void Npc::setWaypoint(Entity3f wp)
 //}
 
 /* Pri */
-void actionPri()		// void setPriority( int action )
+void Npc::actionPri(int action)		// void setPriority( int action ) / addAction?
 {
 	// if leas significant bits put in priHIGH
-
+	if( action <= HIGH_PRI )
+		priHIGH->push( action );
 	// else put in priLOW
+	else
+		priLOW->push( action );
 
 }
 
@@ -132,8 +135,32 @@ void Npc::doAction(int action)
 {
 	switch( action )
 	{
-	case IDLE:				break;
-	case MOVE:				break;
+	case IDLE:			taskIdle();	break;
+	case MOVE:			taskMove();	break;
 	default:					break;
 	}
+}
+
+/* Tasks/schemes... */
+void Npc::taskIdle()
+{
+	//if( !BIT_CHECK(condiFlag, IDLE) )
+	taskStop();
+	// Idle animation BIT_SET(animaFlag, ANIMATION0);
+	// BIT_SET(condiFlag, IDLE);
+}
+
+void Npc::taskMove()
+{
+	// set speed
+	// BIT_CLEAR(condiFlag, STOP);
+	// set vector
+	// face direction
+	// if pos = wp
+	// get next wp form link
+}
+
+void Npc::taskStop()
+{
+	//speed = 0;
 }
