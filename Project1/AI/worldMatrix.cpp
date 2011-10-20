@@ -111,15 +111,15 @@ void allocateEntity(Entity entity);
 //}
 
 /* Allocate Entity in the worldMatrix */
-void allocateEntity(Entity entity)
+void allocateEntity(Entity* entity)
 {
 	int indexA, indexB;
 	Vertex entPos;
 	Volume entVol;
 	Vertex abcd[4];	// the bounding box 4 vertexes A,B,C and D
 
-	entPos = entity.position;
-	entVol = entity.volume;
+	entPos = entity->position;
+	entVol = entity->volume;
 	/* Clockwise ABCD (A is in the top left corner) */
 	abcd[0] = entPos;
 	abcd[1].x = entPos.x + entVol.w;	abcd[1].y = entPos.y;
@@ -132,9 +132,9 @@ void allocateEntity(Entity entity)
 		indexA = ( abcd[i].x / WORLD_WIDTH ) * DIVX;	// (x / width) * dividant 
 		indexB = ( abcd[i].y / WORLD_HEIGHT ) * DIVY;
 		/* Add the entity to the matrix if it does not exist in that index */
-		if( !worldMatrix[indexA][indexB].exist( &entity ) )
+		if( !worldMatrix[indexA][indexB].exist( entity ) )
 		{
-			worldMatrix[indexA][indexB].add( &entity );
+			worldMatrix[indexA][indexB].add( entity );
 		}
 	}
 }
