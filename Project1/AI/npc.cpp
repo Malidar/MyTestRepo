@@ -102,19 +102,19 @@ void Npc::setWaypoint(Entity3f wp)
 //}
 
 /* Pri */
-void Npc::actionPri(int action)		// void setPriority( int action ) / addAction?
+void Npc::addAction(int action)		// void setPriority( int action ) / addAction?
 {
 	// if leas significant bits put in priHIGH
 	if( action <= HIGH_PRI )
 		priHIGH->push( action );
 	// else put in priLOW
-	else
+	else if( action >= LOW_PRI )
 		priLOW->push( action );
 
 }
 
 /* Action loop */
-void Npc::actionLoop()
+void Npc::chooseAction()
 {
 	if( !priHIGH->empty() )
 	{
@@ -139,6 +139,15 @@ void Npc::doAction(int action)
 	case MOVE:			taskMove();	break;
 	default:					break;
 	}
+}
+
+void Npc::update()
+{
+	int newAction;
+	// Precieve MAKE FUNC
+	// register flags for new action
+	addAction( newAction );
+	chooseAction();
 }
 
 /* Tasks/schemes... */

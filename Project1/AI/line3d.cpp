@@ -193,7 +193,7 @@ void line3D(int x1, int y1, int z1, int x2, int y2, int z2)
 		}
 	}
 
-	if (ay >= MAX(ax, az))            /* y dominant */
+	else if (ay >= MAX(ax, az))            /* y dominant */
 	{
 		xd = ax - (ay >> 1);
 		zd = az - (ay >> 1);
@@ -218,7 +218,7 @@ void line3D(int x1, int y1, int z1, int x2, int y2, int z2)
 			zd += az;
 		}
 	}
-	if (az >= MAX(ax, ay))            /* z dominant */
+	else if (az >= MAX(ax, ay))            /* z dominant */
 	{
 		xd = ax - (az >> 1);
 		yd = ay - (az >> 1);

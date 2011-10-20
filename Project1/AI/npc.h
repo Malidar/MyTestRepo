@@ -59,10 +59,11 @@ protected:
 	//void clearFlag(int bit);
 	//int createFlagInt();		/* Array implementation */
 	/* Priority */
-	void actionPri(int action);
+	void addAction(int action);
 	/* Action loop */
-	void actionLoop();
+	void chooseAction();
 	void doAction(int action);
+	void update();
 
 	/* Tasks/schemes... */
 	void taskIdle();
