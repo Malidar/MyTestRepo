@@ -64,7 +64,7 @@ protected:
 	void chooseAction();
 	void doAction(int action);
 	void update();
-
+	int percieve();
 	/* Tasks/schemes... */
 	void taskIdle();
 	void taskMove();

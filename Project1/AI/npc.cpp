@@ -146,8 +146,20 @@ void Npc::update()
 	int newAction;
 	// Precieve MAKE FUNC
 	// register flags for new action
-	addAction( newAction );
+	newAction = percieve();
+	if( newAction )
+	{
+		addAction( newAction );
+	}
 	chooseAction();
+}
+
+int Npc::percieve()
+{
+	// rayCast facing direction in RANGE of npc
+	// if object hit return proper action
+	// SEE_ENEMY / SEE_FRIENDLY / OBSTACLE / TAKING_FIRE
+	return 0;
 }
 
 /* Tasks/schemes... */
