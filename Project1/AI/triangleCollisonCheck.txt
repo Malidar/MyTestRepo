@@ -1,0 +1,46 @@
+float Sign(fPoint p1, fPoint p2, fPoint p3)
+{  
+  return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+}
+
+  bool IsPointInTri(fPoint pt, fPoint v1, fPoint v2, fPoint v3)
+{
+  bool b1, b2, b3;
+  b1 = Sign(pt, v1, v2) < 0.0f;
+  b2 = Sign(pt, v2, v3) < 0.0f;
+  b3 = Sign(pt, v3, v1) < 0.0f;
+  return ((b1 == b2) && (b2 == b3));
+}
+/////////////////////////////////////////////////////////////////////////////
+bool IsPointInTri(Point p, Point v1, Point v2, Point v3)
+{
+    if (Sign(p, v1, v2) < 0.0f)
+        return false;
+    if (Sign(p, v2, v3) < 0.0f)
+        return false;
+    if (Sign(p, v3, v1) < 0.0f)
+        return false;
+// Or > 0.0f in case of opposite winding
+}
+
+float Sign(Point v1, Point v2, Point v3)
+{
+  return (v1->x - v3->x) * (v2->y - v3->y) - (v2->x - v3->x) * (v1->y - v3->y);
+}
+//////////////////////////////////////////////////////////////////////////////
+P is in the triangle (A, B, C) if it verifies,
+
+P = A + (B - A) * t + (C - A) * u
+and
+(t < 1, u < 1, 0 < t + u < 1)
+
+I think that's the inequations you have to solve. But really, the plane check should be enough.
+
+bool b0 = (Vector(P.x - A.x, P.y - A.y) * Vector(A.y - B.y, B.x - A.x) > 0);
+bool b1 = (Vector(P.x - B.x, P.y - B.y) * Vector(B.y - C.y, C.x - B.x) > 0);
+bool b2 = (Vector(P.x - C.x, P.y - C.y) * Vector(C.y - A.y, A.x - C.x) > 0);
+return (b0 == b1 && b1 == b2);
+//////
+http://www.blackpawn.com/texts/pointinpoly/default.html
+http://www.gamedev.net/topic/295943-is-this-a-better-point-in-triangle-test-2d/
+//////
