@@ -149,6 +149,7 @@ Grid::~Grid()
 		delete grid[i]; 
 	delete grid;
 }
+/* Find the index of the grid a certain Coordinate is in */
 int Grid::findWidth(int xCoord)
 {
 	return ( xCoord / width ) * divw;
@@ -185,9 +186,14 @@ void Grid::allocateEntity(Entity& entity)
 	}
 }
 /* Updates the position of an Entity in the grid */
-void Grid::update()
+void Grid::update(/*Entity& entity*/)
 {
-	// Update position 
+	/* Update position of an entity */
+	// If an entity has a 'current gridindex' you can check vs new position
+	// Do findW/H of the new position and see if it equals the current..
+	// if it does, do nothing else update:
+
+
 	// Check if it is outside the grid box
 	// if it is remove it and allocate it again
 	// OR check each corner of the bounding box ....
