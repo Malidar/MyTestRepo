@@ -52,9 +52,7 @@ struct Node
 {
 	Entity* entity;
 	Node* nextNode;
-	// Create func to construct
 	Node(Entity* regEntity, Node* regNextNode);
-	~Node();
 };
 
 /* CLASSES */

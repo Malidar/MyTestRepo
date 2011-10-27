@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include "grid.h"
 
 /* struct Node */
@@ -6,11 +7,6 @@ Node::Node(Entity* regEntity, Node* regNextNode)
 {
 	entity = regEntity;
 	nextNode = regNextNode;
-}
-Node::~Node()
-{
-	delete entity;
-	delete nextNode;
 }
 
 /* struct BoundingBox2D */
@@ -46,7 +42,10 @@ void BoundingBox3D::update(Vertex3i pos, Volume vol)
 }
 /* class EntityList */
 EntityList::EntityList()
-{}
+{
+	tail = new Node(NULL, tail);
+	head = new Node(NULL, tail);
+}
 EntityList::~EntityList()
 {
 	delete head;
@@ -96,29 +95,35 @@ Entity* EntityList::get(Vertex3i Position) //Entity get()
 			{
 				tempNode = tempNode->nextNode;	
 			}
-			//else return NULL;
+			else 
+				return NULL;
 		}	
 		return tempNode->entity;
 	}
-	//return NULL;
+	return NULL;
 }
 bool EntityList::remove(int id)
 {
 	Node* tempNode;
+	Node* tempNodeNext;
 	tempNode = head->nextNode;
+	tempNodeNext = tempNode->nextNode;
 	if( !empty() )
-	{
-		while( id != tempNode->entity->id ) // CHANGE
+	{	
+		/* pointing at the node before the target*/
+		while( id != tempNodeNext->entity->id )
 		{
 			if( tempNode->nextNode != tail )
 			{
 				tempNode = tempNode->nextNode;
+				tempNodeNext = tempNode->nextNode;
 			}
 			else
 				return false;
-		}
-		// redirect nextNode....
-		delete tempNode;
+		}	
+		/* Point tempNode at targets->nextNode, and remove target */
+		tempNode->nextNode = tempNodeNext->nextNode;
+		delete tempNodeNext;
 	}
 	return false;
 }
