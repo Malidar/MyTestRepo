@@ -191,10 +191,20 @@ void Grid::update(/*Entity& entity*/)
 	/* Update position of an entity */
 	// If an entity has a 'current gridindex' you can check vs new position
 	// Do findW/H of the new position and see if it equals the current..
-	// if it does, do nothing else update:
+	// if it does, do nothing. else update:
+	// By updating the grid within each entity, you dont need to check the entire grid when calling update...
 
-
-	// Check if it is outside the grid box
+	/* 
+	Put in entity move funcion: 
+	int x = world.grid.findWidth( newPositon.x );
+	int y = world.grid.findHeight( newPositon.y );
+	if( x != currentGridIndex.x && y != currentGridIndex.y )
+	{
+		world.grid.update( entity );
+	}
+	*/
+		
+	// Check if it is outside the grid box			//If above this is not needed, because it is checked beforehand.
 	// if it is remove it and allocate it again
 	// OR check each corner of the bounding box ....
 }
