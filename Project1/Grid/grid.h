@@ -80,7 +80,7 @@ private:
 	int divh;		// Divisor height / width: 
 	int divw;
 	EntityList** grid;	// EntityList grid[DIVH][DIVW]
-protected:
+public:
 	Grid();
 	Grid( int worldHeight, int worldWidth, int divisorH, int divisorW );
 	~Grid();
