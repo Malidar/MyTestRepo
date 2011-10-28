@@ -24,8 +24,8 @@ struct BoundingBox2D
 	Vertex3i min;
 	Vertex3i max;
 	BoundingBox2D();
-	BoundingBox2D(Vertex3i pos, Volume vol);
-	void update(Vertex3i pos, Volume vol);
+	BoundingBox2D( Vertex3i pos, Volume vol );
+	void update( Vertex3i pos, Volume vol );
 };
 
 struct BoundingBox3D
@@ -33,8 +33,8 @@ struct BoundingBox3D
 	Vertex3i min;
 	Vertex3i max;
 	BoundingBox3D();
-	BoundingBox3D(Vertex3i pos, Volume vol);
-	void update(Vertex3i pos, Volume vol);
+	BoundingBox3D( Vertex3i pos, Volume vol );
+	void update( Vertex3i pos, Volume vol );
 };
 
 /* foo declaration class */
@@ -52,7 +52,7 @@ struct Node
 {
 	Entity* entity;
 	Node* nextNode;
-	Node(Entity* regEntity, Node* regNextNode);
+	Node( Entity* regEntity, Node* regNextNode );
 };
 
 /* CLASSES */
@@ -65,30 +65,30 @@ public:
 	EntityList();
 	~EntityList();
 	bool empty();
-	bool exist(int id);
-	void add(Entity* newEntity);
+	bool exist( int id );
+	void add( Entity* newEntity );
 	// add Entity* search() 
-	Entity* get(Vertex3i Position);
-	bool remove(int id);
+	Entity* get( Vertex3i position );
+	bool remove( int id );
+	bool collision( Vertex3i position );
 };
 
 class Grid
 {
 private:
-	int width;	// World size:
-	int height;
-	int divw;		// Divisor width / Height
-	int divh;
-	EntityList** grid;
-	//EntityList grid[DIVX][DIVY];
+	int height;	// World size:
+	int width;
+	int divh;		// Divisor height / width: 
+	int divw;
+	EntityList** grid;	// EntityList grid[DIVH][DIVW]
 protected:
 	Grid();
-	Grid(int worldWidth, int worldHeight, int divisorW, int divisorH);
+	Grid( int worldHeight, int worldWidth, int divisorH, int divisorW );
 	~Grid();
-	int findWidth(int xCoord);
-	int findHeight(int yCoord);
-	void allocateEntity(Entity& entity);
+	int findWidth( int xCoord );
+	int findHeight( int yCoord );
+	void allocateEntity( Entity& entity );
 	void update();
-	bool checkGrid(Vertex3i position);
+	bool checkGrid( Vertex3i position );
 };
 #endif

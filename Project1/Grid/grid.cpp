@@ -2,21 +2,21 @@
 #include <stdio.h>
 #include "grid.h"
 
-/* struct Node */
-Node::Node(Entity* regEntity, Node* regNextNode)
+/* STRUCT Node */
+Node::Node( Entity* regEntity, Node* regNextNode )
 {
 	entity = regEntity;
 	nextNode = regNextNode;
 }
 
-/* struct BoundingBox2D */
+/* STRUCT BoundingBox2D */
 BoundingBox2D::BoundingBox2D()
 {}
-BoundingBox2D::BoundingBox2D(Vertex3i pos, Volume vol)
+BoundingBox2D::BoundingBox2D( Vertex3i pos, Volume vol )
 {
-	update(pos, vol);
+	update( pos, vol );
 }
-void BoundingBox2D::update(Vertex3i pos, Volume vol)
+void BoundingBox2D::update( Vertex3i pos, Volume vol )
 {
 	/* Calculate min and max coordinates */
 	min = pos;
@@ -25,14 +25,14 @@ void BoundingBox2D::update(Vertex3i pos, Volume vol)
 	max.z = pos.z + vol.l;
 }
 
-/* struct BoundingBox3D */
+/* STRUCT BoundingBox3D */
 BoundingBox3D::BoundingBox3D()
 {}
-BoundingBox3D::BoundingBox3D(Vertex3i pos, Volume vol)
+BoundingBox3D::BoundingBox3D( Vertex3i pos, Volume vol )
 {
-	update(pos, vol);
+	update( pos, vol );
 }
-void BoundingBox3D::update(Vertex3i pos, Volume vol)
+void BoundingBox3D::update( Vertex3i pos, Volume vol )
 {
 	/* Calculate min and max coordinates */
 	min = pos;
@@ -40,11 +40,12 @@ void BoundingBox3D::update(Vertex3i pos, Volume vol)
 	max.y = pos.y + vol.h;	// y is up
 	max.z = pos.z + vol.l;
 }
-/* class EntityList */
+
+/* CLASS EntityList */
 EntityList::EntityList()
 {
-	tail = new Node(NULL, tail);
-	head = new Node(NULL, tail);
+	tail = new Node( NULL, tail );
+	head = new Node( NULL, tail );
 }
 EntityList::~EntityList()
 {
@@ -58,48 +59,40 @@ bool EntityList::empty()
 	else
 		return false;
 }
-bool EntityList::exist(int id)
+bool EntityList::exist( int id )
 {
 	Node* tempNode;
 	tempNode = head->nextNode;
-	if( !empty() )
+
+	while( tempNode != tail )
 	{
-		while( id != tempNode->entity->id ) // CHANGE
+		if( id == tempNode->entity->id )
 		{
-			if( tempNode->nextNode != tail )
-			{
-				tempNode = tempNode->nextNode;
-			}
-			else
-				return false;
+			return true;
 		}
-		return true;
+		tempNode = tempNode->nextNode;
 	}
 	return false;
 }
-void EntityList::add(Entity* newEntity)
+void EntityList::add( Entity* newEntity )
 {
-	Node* newNode = new Node(newEntity, head->nextNode);
+	Node* newNode = new Node( newEntity, head->nextNode );
 	head->nextNode = newNode;
 }
-Entity* EntityList::get(Vertex3i Position) //Entity get()
+Entity* EntityList::get( Vertex3i position ) //Entity get()
 {
 	Node* tempNode;
 	tempNode = head->nextNode;
-	if( !empty() )
-	{
-		while( tempNode->entity->position.x != Position.x && 
-						tempNode->entity->position.y != Position.y )
+	// y is up
+		while( tempNode->nextNode != tail )
 		{
-			if( tempNode->nextNode != tail )
+			if( tempNode->entity->position.x == position.x && 
+					tempNode->entity->position.z == position.z )
 			{
-				tempNode = tempNode->nextNode;	
+				return tempNode->entity;
 			}
-			else 
-				return NULL;
-		}	
-		return tempNode->entity;
-	}
+			tempNode = tempNode->nextNode;
+		}
 	return NULL;
 }
 bool EntityList::remove(int id)
@@ -108,30 +101,42 @@ bool EntityList::remove(int id)
 	Node* tempNodeNext;
 	tempNode = head->nextNode;
 	tempNodeNext = tempNode->nextNode;
-	if( !empty() )
-	{	
-		/* pointing at the node before the target*/
-		while( id != tempNodeNext->entity->id )
+	
+	while( tempNode != tail )
+	{/* pointing at the node before the target*/
+		if( id == tempNodeNext->entity->id )
 		{
-			if( tempNode->nextNode != tail )
-			{
-				tempNode = tempNode->nextNode;
-				tempNodeNext = tempNode->nextNode;
-			}
-			else
-				return false;
-		}	
-		/* Point tempNode at targets->nextNode, and remove target */
-		tempNode->nextNode = tempNodeNext->nextNode;
-		delete tempNodeNext;
+			/* Point tempNode at targets->nextNode, and remove target */
+			tempNode->nextNode = tempNodeNext->nextNode;
+			delete tempNodeNext;
+			return true;
+		}
+		tempNode = tempNode->nextNode;
+		tempNodeNext = tempNode->nextNode;
+	}	
+	return false;
+}
+/* See if any of the entities in the list collides with the position */
+bool EntityList::collision( Vertex3i position )
+{
+	Node* tempNode;
+	tempNode = head->nextNode;
+
+	while( tempNode != tail )
+	{
+		if(true/* checkBox2D( tempNode->entity->box, position8 */)	// include checkBox
+		{
+			return true;
+		}
+		tempNode = tempNode->nextNode;
 	}
 	return false;
 }
 
-/* class Grid */
+/* CLASS Grid */
 Grid::Grid()	
 {}
-Grid::Grid(int worldHeight, int worldWidth, int divisorH, int divisorW)
+Grid::Grid( int worldHeight, int worldWidth, int divisorH, int divisorW )
 {
 	height = worldHeight;
 	width = worldWidth;
@@ -139,27 +144,27 @@ Grid::Grid(int worldHeight, int worldWidth, int divisorH, int divisorW)
 	divw = divisorW;
 	/* Create grid */
 	grid = new EntityList*[divh];
-	for(int i = 0; i < divh; i++)
+	for( int i = 0; i < divh; i++ )
 		grid[i] = new EntityList[divw];
 }
 Grid::~Grid()	
 {
 	/* Delete grid */
-	for(int i = 0; i < divh; i++)
+	for( int i = 0; i < divh; i++ )
 		delete grid[i]; 
 	delete [] grid;
 }
 /* Find the index of the grid a certain Coordinate is in */
-int Grid::findWidth(int xCoord)
+int Grid::findWidth( int xCoord )
 {
 	return ( xCoord / width ) * divw;
 }
-int Grid::findHeight(int yCoord)
+int Grid::findHeight( int yCoord )
 {
 	return ( yCoord / height ) * divh;
 }
 /* Allocate an Entity in the grid */
-void Grid::allocateEntity(Entity& entity)
+void Grid::allocateEntity( Entity& entity )
 {
 	int indexH, indexW;
 	Volume entVol;
@@ -187,7 +192,7 @@ void Grid::allocateEntity(Entity& entity)
 	}
 }
 /* Updates the position of an Entity in the grid */
-void Grid::update(/*Entity& entity*/)
+void Grid::update( /*Entity& entity*/ )
 {
 	/* Update position of an entity */
 	// If an entity has a 'current gridindex' you can check vs new position
@@ -210,10 +215,14 @@ void Grid::update(/*Entity& entity*/)
 	// OR check each corner of the bounding box ....
 }
 /* Checks if an Entity is in a given position */
-bool Grid::checkGrid(Vertex3i position)
+bool Grid::checkGrid( Vertex3i position )
 {
-	int indexH;
-	int indexW;
-	
-	return true;
+	int indexH = findHeight( position.z );	// y coordinate is up
+	int indexW = findWidth( position.x );
+	/* Search the grid in given indexes for Entities width
+		 position inside theyre bounding box									*/
+	if( grid[indexH][indexW].collision( position ) )
+		return true;
+	else 
+		return false;
 }
