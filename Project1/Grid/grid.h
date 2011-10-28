@@ -89,5 +89,6 @@ protected:
 	int findHeight(int yCoord);
 	void allocateEntity(Entity& entity);
 	void update();
+	bool checkGrid(Vertex3i position);
 };
 #endif

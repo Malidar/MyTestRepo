@@ -131,23 +131,23 @@ bool EntityList::remove(int id)
 /* class Grid */
 Grid::Grid()	
 {}
-Grid::Grid(int worldWidth, int worldHeight, int divisorW, int divisorH)
+Grid::Grid(int worldHeight, int worldWidth, int divisorH, int divisorW)
 {
-	width = worldWidth;
 	height = worldHeight;
-	divw = divisorW;
+	width = worldWidth;
 	divh = divisorH;
+	divw = divisorW;
 	/* Create grid */
-	grid = new EntityList*[width];
-	for(int i = 0; i < height; i++)
-		grid[i] = new EntityList[height];
+	grid = new EntityList*[divh];
+	for(int i = 0; i < divh; i++)
+		grid[i] = new EntityList[divw];
 }
 Grid::~Grid()	
 {
 	/* Delete grid */
-	for(int i = 0; i < height; i++)
+	for(int i = 0; i < divh; i++)
 		delete grid[i]; 
-	delete grid;
+	delete [] grid;
 }
 /* Find the index of the grid a certain Coordinate is in */
 int Grid::findWidth(int xCoord)
@@ -161,7 +161,7 @@ int Grid::findHeight(int yCoord)
 /* Allocate an Entity in the grid */
 void Grid::allocateEntity(Entity& entity)
 {
-	int indexA, indexB;
+	int indexH, indexW;
 	Volume entVol;
 	Vertex3i entPos;
 	Vertex3i corners[4];	// the bounding box 4 vertexes A,B,C and D
@@ -176,12 +176,13 @@ void Grid::allocateEntity(Entity& entity)
 	for( int i = 0; i < 4; i++ )
 	{
 	/* Check in which indexes the entity will be stored (in worldMatrix) */
-	indexA = findWidth(corners[i].x);
-	indexB = findHeight(corners[i].y);
+	indexH = findHeight(corners[i].y);
+	indexW = findWidth(corners[i].x);
+	
 	/* Add the entity to the matrix if it does not exist in that index */
-		if( !grid[indexA][indexB].exist( entity.id ) )
+		if( !grid[indexH][indexW].exist( entity.id ) )
 		{
-			grid[indexA][indexB].add( &entity );
+			grid[indexH][indexW].add( &entity );
 		}
 	}
 }
@@ -207,4 +208,12 @@ void Grid::update(/*Entity& entity*/)
 	// Check if it is outside the grid box			//If above this is not needed, because it is checked beforehand.
 	// if it is remove it and allocate it again
 	// OR check each corner of the bounding box ....
+}
+/* Checks if an Entity is in a given position */
+bool Grid::checkGrid(Vertex3i position)
+{
+	int indexH;
+	int indexW;
+	
+	return true;
 }

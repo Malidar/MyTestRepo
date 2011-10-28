@@ -100,7 +100,7 @@ public:
 
 /* Global Var */
 //int* worldMatrix;
-EntityList worldMatrix[DIVX][DIVY];
+EntityList worldMatrix[DIVY][DIVX];
 
 /* Functions */
 void allocateEntity(Entity entity);
@@ -129,8 +129,8 @@ void allocateEntity(Entity* entity)
 	for( int i = 0; i < 4; i++ )
 	{
 		/* Check in which indexes the entity will be stored (in worldMatrix) */
-		indexA = ( abcd[i].x / WORLD_WIDTH ) * DIVX;	// (x / width) * dividant 
-		indexB = ( abcd[i].y / WORLD_HEIGHT ) * DIVY;
+		indexA = ( abcd[i].y / WORLD_HEIGHT ) * DIVY;
+		indexB = ( abcd[i].x / WORLD_WIDTH ) * DIVX;	// (x / width) * dividant 
 		/* Add the entity to the matrix if it does not exist in that index */
 		if( !worldMatrix[indexA][indexB].exist( entity ) )
 		{
