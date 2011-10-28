@@ -9,30 +9,14 @@ Node::Node( Entity* regEntity, Node* regNextNode )
 	nextNode = regNextNode;
 }
 
-/* STRUCT BoundingBox2D */
-BoundingBox2D::BoundingBox2D()
-{}
-BoundingBox2D::BoundingBox2D( Vertex3i pos, Volume vol )
-{
-	update( pos, vol );
-}
-void BoundingBox2D::update( Vertex3i pos, Volume vol )
-{
-	/* Calculate min and max coordinates */
-	min = pos;
-	max.x = pos.x + vol.w;
-	max.y = 0;	//max.y = pos.y + vol.h;
-	max.z = pos.z + vol.l;
-}
-
 /* STRUCT BoundingBox3D */
-BoundingBox3D::BoundingBox3D()
+BoundingBox::BoundingBox()
 {}
-BoundingBox3D::BoundingBox3D( Vertex3i pos, Volume vol )
+BoundingBox::BoundingBox( Vertex3i pos, Volume vol )
 {
 	update( pos, vol );
 }
-void BoundingBox3D::update( Vertex3i pos, Volume vol )
+void BoundingBox::update( Vertex3i pos, Volume vol )
 {
 	/* Calculate min and max coordinates */
 	min = pos;
@@ -79,7 +63,7 @@ void EntityList::add( Entity* newEntity )
 	Node* newNode = new Node( newEntity, head->nextNode );
 	head->nextNode = newNode;
 }
-Entity* EntityList::get( Vertex3i position ) //Entity get()
+Entity* EntityList::get( Vertex3i position )
 {
 	Node* tempNode;
 	tempNode = head->nextNode;

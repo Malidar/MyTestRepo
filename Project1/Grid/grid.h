@@ -19,21 +19,12 @@ struct Volume
 	int w,l,h;
 };
 
-struct BoundingBox2D
+struct BoundingBox
 {
 	Vertex3i min;
 	Vertex3i max;
-	BoundingBox2D();
-	BoundingBox2D( Vertex3i pos, Volume vol );
-	void update( Vertex3i pos, Volume vol );
-};
-
-struct BoundingBox3D
-{
-	Vertex3i min;
-	Vertex3i max;
-	BoundingBox3D();
-	BoundingBox3D( Vertex3i pos, Volume vol );
+	BoundingBox();
+	BoundingBox( Vertex3i pos, Volume vol );
 	void update( Vertex3i pos, Volume vol );
 };
 
@@ -44,7 +35,7 @@ public:										//
 	int id;							//
 	Vertex3i position;			//
 	Volume volume;					//
-	BoundingBox3D box;			//
+	BoundingBox box;			//
 };												//
 /*                       */
 
