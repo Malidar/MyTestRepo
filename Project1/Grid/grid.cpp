@@ -181,8 +181,8 @@ void Grid::allocateEntity( Entity& entity )
 	for( int i = 0; i < 4; i++ )
 	{
 	/* Check in which indexes the entity will be stored (in worldMatrix) */
-	indexH = findHeight(corners[i].z);
-	indexW = findWidth(corners[i].x);
+	indexH = findHeight( corners[i].z );
+	indexW = findWidth( corners[i].x );
 	
 	/* Add the entity to the matrix if it does not exist in that index */
 		if( !grid[indexH][indexW].exist( entity.id ) )
