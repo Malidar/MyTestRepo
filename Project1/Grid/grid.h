@@ -67,7 +67,6 @@ public:
 	bool empty();
 	bool exist( int id );
 	void add( Entity* newEntity );
-	// add Entity* search() 
 	Entity* get( Vertex3i position );
 	bool remove( int id );
 	bool collision( Vertex3i position );
