@@ -174,9 +174,9 @@ void Grid::allocateEntity( Entity& entity )
 	entVol = entity.volume;
 	/* Clockwise ABCD (A is in the top left corner) */
 	corners[0] = entPos;
-	corners[1].x = entPos.x + entVol.w;	corners[1].y = entPos.y;
-	corners[2].x = entPos.x + entVol.w;	corners[2].y = entPos.y + entVol.l;
-	corners[3].x = entPos.x;						corners[3].y = entPos.y + entVol.l;
+	corners[1].x = entPos.x + entVol.w;	corners[1].z = entPos.z;		// y is up
+	corners[2].x = entPos.x + entVol.w;	corners[2].z = entPos.z + entVol.l;
+	corners[3].x = entPos.x;						corners[3].z = entPos.z + entVol.l;
 	/* Check all four corners */
 	for( int i = 0; i < 4; i++ )
 	{
