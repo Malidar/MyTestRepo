@@ -157,11 +157,11 @@ Grid::~Grid()
 /* Find the index of the grid a certain Coordinate is in */
 int Grid::findWidth( int xCoord )
 {
-	return ( xCoord / width ) * divw;
+	return ( ( xCoord / width ) * divw );
 }
 int Grid::findHeight( int yCoord )
 {
-	return ( yCoord / height ) * divh;
+	return ( ( yCoord / height ) * divh );
 }
 /* Allocate an Entity in the grid */
 void Grid::allocateEntity( Entity& entity )
@@ -181,7 +181,7 @@ void Grid::allocateEntity( Entity& entity )
 	for( int i = 0; i < 4; i++ )
 	{
 	/* Check in which indexes the entity will be stored (in worldMatrix) */
-	indexH = findHeight(corners[i].y);
+	indexH = findHeight(corners[i].z);
 	indexW = findWidth(corners[i].x);
 	
 	/* Add the entity to the matrix if it does not exist in that index */
