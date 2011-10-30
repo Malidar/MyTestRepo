@@ -9,20 +9,52 @@ Node::Node( Entity* regEntity, Node* regNextNode )
 	nextNode = regNextNode;
 }
 
-/* STRUCT BoundingBox3D */
+/* CLASS BoundingBox3D */
 BoundingBox::BoundingBox()
 {}
-BoundingBox::BoundingBox( Vertex3i pos, Volume vol )
+BoundingBox::BoundingBox( int x, int y, int z, int height, int width, int length )
 {
-	update( pos, vol );
+	boxHeight = height;
+	boxWidth = width;
+	boxLength = length;
+	update( x, y, z );
 }
-void BoundingBox::update( Vertex3i pos, Volume vol )
+void BoundingBox::update( int x, int y, int z)
 {
 	/* Calculate min and max coordinates */
-	min = pos;
-	max.x = pos.x + vol.w;
-	max.y = pos.y + vol.h;	// y is up
-	max.z = pos.z + vol.l;
+	min.x = x;
+	min.y = y;
+	min.z = z;
+	max.x = x + boxWidth;
+	max.y = y + boxHeight;	// y is up
+	max.z = z + boxLength;
+}
+Vertex3i BoundingBox::getMin()
+{
+	return min;
+}
+Vertex3i BoundingBox::getMax()
+{
+	return max;
+}
+void BoundingBox::corners2D( Vertex3i* corners )
+{
+	/* Clockwise ABCD (A is in the top left corner) */
+	(*corners) = min;
+	corners++;
+	(*corners).x = max.x;						(*corners).z = min.z;		// y is up
+	corners++;
+	(*corners) = max;
+	corners++;
+	(*corners).x = min.x;						(*corners).z = max.z;
+
+	//Vertex3i corners[BOX_2D];	
+	///* Clockwise ABCD (A is in the top left corner) */
+	//corners[0] = min;
+	//corners[1].x = max.x;						corners[1].z = min.z;		// y is up
+	//corners[2] = max;
+	//corners[3].x = min.x;						corners[3].z = max.z;
+	//return corners;
 }
 
 /* CLASS EntityList */
@@ -147,26 +179,47 @@ int Grid::findHeight( int yCoord )
 {
 	return ( ( (float)yCoord / height ) * divh );
 }
+///* Allocate an Entity in the grid */
+//void Grid::allocateEntity( Entity& entity )
+//{
+//	int indexH, indexW;
+//	Volume entVol;
+//	Vertex3i entPos;
+//	Vertex3i corners[4];	// the bounding box 4 vertexes A,B,C and D
+//	entPos = entity.position;
+//	entVol = entity.volume;
+//	/* Clockwise ABCD (A is in the top left corner) */
+//	corners[0] = entPos;
+//	corners[1].x = entPos.x + entVol.w;	corners[1].z = entPos.z;		// y is up
+//	corners[2].x = entPos.x + entVol.w;	corners[2].z = entPos.z + entVol.l;
+//	corners[3].x = entPos.x;						corners[3].z = entPos.z + entVol.l;
+//	/* Check all four corners */
+//	for( int i = 0; i < 4; i++ )
+//	{
+//	/* Check in which indexes the entity will be stored (in worldMatrix) */
+//	indexH = findHeight( corners[i].z );
+//	indexW = findWidth( corners[i].x );
+//	
+//	/* Add the entity to the matrix if it does not exist in that index */
+//		if( !grid[indexH][indexW].exist( entity.id ) )
+//		{
+//			grid[indexH][indexW].add( &entity );
+//		}
+//	}
+//}
 /* Allocate an Entity in the grid */
 void Grid::allocateEntity( Entity& entity )
 {
 	int indexH, indexW;
-	Volume entVol;
-	Vertex3i entPos;
-	Vertex3i corners[4];	// the bounding box 4 vertexes A,B,C and D
-	entPos = entity.position;
-	entVol = entity.volume;
-	/* Clockwise ABCD (A is in the top left corner) */
-	corners[0] = entPos;
-	corners[1].x = entPos.x + entVol.w;	corners[1].z = entPos.z;		// y is up
-	corners[2].x = entPos.x + entVol.w;	corners[2].z = entPos.z + entVol.l;
-	corners[3].x = entPos.x;						corners[3].z = entPos.z + entVol.l;
+	Vertex3i bbox[BOX_2D];	// the bounding box 4 vertexes A,B,C and D
+	/* Get the 4 corners from the bbox */
+	entity.box.corners2D( bbox );
 	/* Check all four corners */
-	for( int i = 0; i < 4; i++ )
+	for( int i = 0; i < BOX_2D; i++ )
 	{
 	/* Check in which indexes the entity will be stored (in worldMatrix) */
-	indexH = findHeight( corners[i].z );
-	indexW = findWidth( corners[i].x );
+	indexH = findHeight( bbox[i].z );
+	indexW = findWidth( bbox[i].x );
 	
 	/* Add the entity to the matrix if it does not exist in that index */
 		if( !grid[indexH][indexW].exist( entity.id ) )
