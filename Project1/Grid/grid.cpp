@@ -29,6 +29,10 @@ void BoundingBox::update( int x, int y, int z)
 	max.y = y + boxHeight;	// y is up
 	max.z = z + boxLength;
 }
+void BoundingBox::update( Vertex3i position )
+{
+	update( position.x, position.y, position.z );
+}
 Vertex3i BoundingBox::getMin()
 {
 	return min;
@@ -95,12 +99,39 @@ void EntityList::add( Entity* newEntity )
 	Node* newNode = new Node( newEntity, head->nextNode );
 	head->nextNode = newNode;
 }
+/* Get first entry in list */
+Entity* EntityList::get()
+{
+	if( head->nextNode != tail )
+	{
+		return head->nextNode->entity;
+	}
+	return NULL;
+}
+/* Get the entry after the given one */
+Entity* EntityList::get( Entity* entity )
+{
+	Node* tempNode;
+	tempNode = head->nextNode;
+	while( tempNode != tail )
+	{
+		if( tempNode->entity->id == entity->id )
+		{
+			if( tempNode->nextNode != tail )
+			{
+				return tempNode->nextNode->entity;
+			}
+		}
+		tempNode = tempNode->nextNode;
+	}
+	return NULL;
+}
 Entity* EntityList::get( Vertex3i position )
 {
 	Node* tempNode;
 	tempNode = head->nextNode;
 	// y is up
-		while( tempNode->nextNode != tail )
+		while( tempNode != tail )
 		{
 			if( tempNode->entity->position.x == position.x && 
 					tempNode->entity->position.z == position.z )
@@ -140,7 +171,7 @@ bool EntityList::collision( Vertex3i position )
 
 	while( tempNode != tail )
 	{
-		if(true/* checkBox2D( tempNode->entity->box, position8 */)	// include checkBox
+		if(true/* checkBox2D( tempNode->entity->box, position */)	// include checkBox
 		{
 			return true;
 		}
@@ -211,15 +242,15 @@ int Grid::findHeight( int yCoord )
 void Grid::allocateEntity( Entity& entity )
 {
 	int indexH, indexW;
-	Vertex3i bbox[BOX_2D];	// the bounding box 4 vertexes A,B,C and D
+	Vertex3i box2D[BOX_2D];	// the bounding box 4 vertexes A,B,C and D
 	/* Get the 4 corners from the bbox */
-	entity.box.corners2D( bbox );
+	entity.box.corners2D( box2D );
 	/* Check all four corners */
 	for( int i = 0; i < BOX_2D; i++ )
 	{
 	/* Check in which indexes the entity will be stored (in worldMatrix) */
-	indexH = findHeight( bbox[i].z );
-	indexW = findWidth( bbox[i].x );
+	indexH = findHeight( box2D[i].z );
+	indexW = findWidth( box2D[i].x );
 	
 	/* Add the entity to the matrix if it does not exist in that index */
 		if( !grid[indexH][indexW].exist( entity.id ) )
@@ -250,6 +281,44 @@ void Grid::update( /*Entity& entity*/ )
 	// Check if it is outside the grid box			//If above this is not needed, because it is checked beforehand.
 	// if it is remove it and allocate it again
 	// OR check each corner of the bounding box ....
+	int indexH, indexW;
+	Entity* inList;
+	BoundingBox oldBox;
+	Vertex3i box2D[BOX_2D];
+	/* Run trough the entire grid */
+	for( int i = 0; i < divh; i++ )
+	{
+		for( int j = 0; j < divw; j++ )
+		{
+			inList = grid[i][j].get();						// Get first entity
+			/* if there is an entity in the list */
+			while( inList )
+			{
+				/* Update if it has moved */
+				if( inList->position.x != inList->oldPosition.x &&
+						inList->position.y != inList->oldPosition.y &&
+						inList->position.z != inList->oldPosition.z )
+				{
+					/* Calculate the old bounding box */
+					oldBox = inList->box;
+					oldBox.update( inList->oldPosition );
+					oldBox.corners2D( box2D );
+					/* Remove the old placeholders */
+					for( int i = 0; i < BOX_2D; i++ )
+					{
+						/* Check in which indexes the entity is stored */
+						indexH = findHeight( box2D[i].z );
+						indexW = findWidth( box2D[i].x );
+						/* Remove it */
+						grid[i][j].remove( inList->id );
+					}
+					/* Allocate the new positon */
+					allocateEntity( *inList );
+				}
+				inList = grid[i][j].get( inList );	// Get next entity
+			}
+		}
+	}
 }
 /* Checks if an Entity is in a given position */
 bool Grid::checkGrid( Vertex3i position )

@@ -32,6 +32,7 @@ public:
 	BoundingBox();
 	BoundingBox( int x, int y, int z, int height, int width, int length );
 	void update( int x, int y, int z );
+	void update( Vertex3i position );
 	Vertex3i getMin();
 	Vertex3i getMax();
 	void corners2D( Vertex3i* corners );
@@ -69,6 +70,8 @@ public:
 	bool empty();
 	bool exist( int id );
 	void add( Entity* newEntity );
+	Entity* get();
+	Entity* get( Entity* entity );
 	Entity* get( Vertex3i position );
 	bool remove( int id );
 	bool collision( Vertex3i position );
