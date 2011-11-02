@@ -156,9 +156,10 @@ void Npc::update()
 
 int Npc::percieve()
 {
-	// rayCast facing direction in RANGE of npc
+	// use a triangle check to represent the view. if something is inside:
+	// rayCast to the entity to  see if there are no obstacles
 	// if object hit return proper action
-	// SEE_ENEMY / SEE_FRIENDLY / OBSTACLE / TAKING_FIRE
+	// SEE_ENEMY / SEE_FRIENDLY / OBSTACLE / 
 	return 0;
 }
 
@@ -179,6 +180,7 @@ void Npc::taskMove()
 	// face direction
 	// if pos = wp
 	// get next wp form link
+	// also: make time / speed / distance calc between 2 points 
 }
 
 void Npc::taskStop()

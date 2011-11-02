@@ -23,13 +23,12 @@ const int SHOOT				= 1;
 const int SEE_ENEMY		= 2;
 const int BLOCKED			= 3;
 const int RUNNING			= 6;
-const int	JUMPING			= 7;
+//const int	JUMPING			= 7;
 
 
 /* TASKS */	/* ACTIONS */
 const int FACE_ENEMY	= 0;
 const int RELOAD			= 0;
-const int MOVE				= 1;
 
 /* SCHEMES */
 const int HIDE				= 0;

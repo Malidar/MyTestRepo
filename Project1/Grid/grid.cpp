@@ -282,7 +282,7 @@ void Grid::update( /*Entity& entity*/ )
 	// if it is remove it and allocate it again
 	// OR check each corner of the bounding box ....
 
-	/* CHANGE: make it to chekc if an entity has crossed a boarder and update relative to the direction? */
+	/* CHANGE: make it to check if an entity has crossed a border and update relative to the direction? */
 	int indexH, indexW;
 	Entity* inList;
 	BoundingBox oldBox;
