@@ -22,7 +22,7 @@ bool checkBox3D(BoundingBox box, Vector3i point)
 	}
 	return false;
 }
-
+/* Check if a point is inside a box */
 bool checkBox2D(BoundingBox box, Vector3i point)
 {
 	if( point.x < box.max.x && point.x > box.min.x )

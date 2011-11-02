@@ -1,42 +1,11 @@
 #ifndef _GRID_H
 #define _GRID_H
 
-
-/* Constants */
-const int DIVX = 10;							// Dividant
-const int DIVY = 10;
-const int WORLD_WIDTH = 1200;			// World size
-const int WORLD_HEIGHT = 900;
-const int BOX_2D = 4;
-
-/* STRUCTS */
-struct Vertex3i
-{
-	int x,y,z;
-};
+#include "COLLISION.H"
 
 struct Volume
 {
 	int w,l,h;
-};
-
-class BoundingBox
-{
-private:
-	int boxHeight;
-	int boxWidth;
-	int boxLength;
-	Vertex3i min;
-	Vertex3i max;
-public:	
-	BoundingBox();
-	BoundingBox( int x, int y, int z, int height, int width, int length );
-	void update( int x, int y, int z );
-	void update( Vertex3i position );
-	Vertex3i getMin();
-	Vertex3i getMax();
-	void corners2D( Vertex3i* corners );
-	//Vertex3i* corners3D();
 };
 
 /* foo declaration class */

@@ -136,7 +136,7 @@ void Npc::doAction(int action)
 	switch( action )
 	{
 	case IDLE:			taskIdle();	break;
-	case MOVE:			taskMove();	break;
+	case SEARCH:			taskMove();	break;
 	default:					break;
 	}
 }

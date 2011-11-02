@@ -32,7 +32,7 @@ const int RELOAD			= 0;
 
 /* SCHEMES */
 const int HIDE				= 0;
-const int SEARCH			= 0;
+const int SEARCH			= 1;
 
 /* ANIMATIONS */
 const int ANIMATIONS	= 16;		
