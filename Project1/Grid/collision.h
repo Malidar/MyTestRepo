@@ -25,7 +25,7 @@ public:
 	void update( Vertex3i position );
 	Vertex3i getMin();
 	Vertex3i getMax();
-	void corners2D( Vertex3i* corners );
+	void corners2D( Vertex3i* corners );   // CHANGE!: make a struct or class that makes the corners of a box struct Box2D..
 	//Vertex3i* corners3D();
 };
 
