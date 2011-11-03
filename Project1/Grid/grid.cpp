@@ -190,9 +190,10 @@ int Grid::findHeight( int yCoord )
 void Grid::allocateEntity( Entity& entity )
 {
 	int indexH, indexW;
-	Vertex3i box2D[BOX_2D];	// the bounding box 4 vertexes A,B,C and D
+	Vertex3i* box2D;	// the bounding box 4 vertexes A,B,C and D
 	/* Get the 4 corners from the bbox */
-	entity.box.corners2D( box2D );
+	box2D = entity.box.corners2D;
+
 	/* Check all four corners */
 	for( int i = 0; i < BOX_2D; i++ )
 	{
@@ -234,7 +235,7 @@ void Grid::update( /*Entity& entity*/ )
 	int indexH, indexW;
 	Entity* inList;
 	BoundingBox oldBox;
-	Vertex3i box2D[BOX_2D];
+	Vertex3i* box2D;
 	/* Run trough the entire grid */
 	for( int i = 0; i < divh; i++ )
 	{
@@ -251,7 +252,7 @@ void Grid::update( /*Entity& entity*/ )
 					/* Calculate the old bounding box */
 					oldBox = inList->box;
 					oldBox.update( inList->oldPosition );
-					oldBox.corners2D( box2D );
+					box2D = oldBox.corners2D;
 					/* Remove the old placeholders */
 					for( int i = 0; i < BOX_2D; i++ )
 					{
