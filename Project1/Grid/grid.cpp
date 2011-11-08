@@ -152,11 +152,11 @@ Grid::~Grid()
 /* Find the index of the grid a certain Coordinate is in */
 int Grid::findWidth( int xCoord )
 {
-	return ( ( (float)xCoord / width ) * divw );
+	return ( ( xCoord * divw ) / width );
 }
 int Grid::findHeight( int yCoord )
 {
-	return ( ( (float)yCoord / height ) * divh );
+	return ( ( yCoord * divh ) / height );
 }
 ///* Allocate an Entity in the grid */
 //void Grid::allocateEntity( Entity& entity )
