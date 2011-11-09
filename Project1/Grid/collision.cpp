@@ -84,3 +84,13 @@ bool checkTriangle( Vertex3i point, Vertex3i p0, Vertex3i p1, Vertex3i p2 )
   b2 = sign( p0, p2, point ) < 0;
   return ( ( b0 == b1 ) && ( b1 == b2 ) );
 }
+/* Check if a line goes between two points */
+bool checkLineIntersection( Vertex3i linePoint0, Vertex3i p0, Vertex3i p1 )
+{
+	bool b0, b1;
+	Vertex3i linePoint1 = linePoint0;
+	linePoint1.z++;										// y is up
+	b0 = sign( linePoint0, linePoint1, p0 ) < 0;
+	b1 = sign( linePoint0, linePoint1, p1 ) < 0;
+	return ( b0 != b1 );
+}

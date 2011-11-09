@@ -37,4 +37,5 @@ bool checkBox2D( BoundingBox box, Vertex3i point );
 bool checkBox3D( BoundingBox box, Vertex3i point );
 int sign( Vertex3i p0, Vertex3i p1, Vertex3i p2 );
 bool checkTriangle( Vertex3i point, Vertex3i p0, Vertex3i p1, Vertex3i p2 );
+bool checkLineIntersection( Vertex3i linePoint0, Vertex3i p0, Vertex3i p1 );
 #endif

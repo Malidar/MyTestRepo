@@ -119,7 +119,7 @@ bool EntityList::collision( Vertex3i position )
 
 	while( tempNode != tail )
 	{
-		if(true/* checkBox2D( tempNode->entity->box, position */)	// include checkBox
+		if( checkBox2D( tempNode->entity->box, position )	)
 		{
 			return true;
 		}
@@ -189,9 +189,12 @@ int Grid::findHeight( int yCoord )
 /* Allocate an Entity in the grid */
 void Grid::allocateEntity( Entity& entity )
 {
-	int indexH, indexW;
-	Vertex3i* box2D;	// the bounding box 4 vertexes A,B,C and D
-	/* Get the 4 corners from the bbox */
+	int indexH, indexW, 
+			boxWidth, boxHeight,
+			hits, line;
+	Vertex3i p0, p1, ln;
+	Vertex3i* box2D;
+	/* Get the 4 corners from the bounding box */
 	box2D = entity.box.corners2D;
 
 	/* Check all four corners */
@@ -205,6 +208,53 @@ void Grid::allocateEntity( Entity& entity )
 		if( !grid[indexH][indexW].exist( entity.id ) )
 		{
 			grid[indexH][indexW].add( &entity );
+		}
+	}
+	boxWidth = ( width / divw );
+	boxHeight = ( height / divh );
+	p0 = entity.box.min;
+	p1 = entity.box.max;
+
+	/* If an entety can cross an entire gridbox WIDTH */
+	if( entity.box.w > boxWidth )
+	{/* Count the number of grid lines it crosses/hits */
+		hits = 0; line = 0;
+		ln.x = 0; ln.y = 0; ln.z = 0;
+		while( !checkLineIntersection( ln, p0, p1 ) )
+		{/* Loop until it hits the entity */
+			line++;
+			ln.x = ( boxWidth * line );
+		}
+		while( checkLineIntersection( ln, p0, p1 ) )
+		{/* Loop until it no longer hits the entity */
+			hits++;
+			line++;
+			ln.x = ( boxWidth * line );
+		}/* If the entity crosses more than 1 gridbox/lines */
+		for( int i = 1; i < hits; i++ )
+		{
+			grid[indexH][indexW+i].add( &entity );
+		}
+	}
+	/* If an entety can cross an entire gridbox HEIGHT */
+	if( entity.box.h > boxHeight )
+	{/* Count the number of grid lines it crosses/hits */
+		hits = 0; line = 0;
+		ln.z = 0; ln.y = 0; ln.z = 0;
+		while( !checkLineIntersection( ln, p0, p1 ) )
+		{/* Loop until it hits the entity */
+			line++;
+			ln.z = ( boxHeight * line );
+		}
+		while( checkLineIntersection( ln, p0, p1 ) )
+		{/* Loop until it no longer hits the entity */
+			hits++;
+			line++;
+			ln.z = ( boxHeight * line );
+		}/* If the entity crosses more than 1 gridbox/lines */
+		for( int i = 1; i < hits; i++ )
+		{
+			grid[indexH+i][indexW].add( &entity );
 		}
 	}
 }
@@ -232,7 +282,10 @@ void Grid::update( /*Entity& entity*/ )
 	// OR check each corner of the bounding box ....
 
 	/* CHANGE: make it to check if an entity has crossed a border and update relative to the direction? */
-	int indexH, indexW;
+	int indexH, indexW,
+			boxWidth, boxHeight,
+			hits, line;
+	Vertex3i p0, p1, ln;
 	Entity* inList;
 	BoundingBox oldBox;
 	Vertex3i* box2D;
@@ -260,7 +313,54 @@ void Grid::update( /*Entity& entity*/ )
 						indexH = findHeight( box2D[i].z );
 						indexW = findWidth( box2D[i].x );
 						/* Remove it */
-						grid[i][j].remove( inList->id );
+						grid[indexH][indexW].remove( inList->id );
+					}
+					boxWidth = ( width / divw );
+					boxHeight = ( height / divh );
+					p0 = inList->box.min;
+					p1 = inList->box.max;
+
+					/* If an entety can cross an entire gridbox WIDTH */
+					if( inList->box.w > boxWidth )
+					{/* Count the number of grid lines it crosses/hits */
+						hits = 0; line = 0;
+						ln.x = 0; ln.y = 0; ln.z = 0;
+						while( !checkLineIntersection( ln, p0, p1 ) )
+						{/* Loop until it hits the entity */
+							line++;
+							ln.x = ( boxWidth * line );
+						}
+						while( checkLineIntersection( ln, p0, p1 ) )
+						{/* Loop until it no longer hits the entity */
+							hits++;
+							line++;
+							ln.x = ( boxWidth * line );
+						}/* If the entity crosses more than 1 gridbox/lines */
+						for( int i = 1; i < hits; i++ )
+						{
+							grid[indexH][indexW+i].remove( inList->id );
+						}
+					}
+					/* If an entety can cross an entire gridbox HEIGHT */
+					if( inList->box.h > boxHeight )
+					{/* Count the number of grid lines it crosses/hits */
+						hits = 0; line = 0;
+						ln.z = 0; ln.y = 0; ln.z = 0;
+						while( !checkLineIntersection( ln, p0, p1 ) )
+						{/* Loop until it hits the entity */
+							line++;
+							ln.z = ( boxHeight * line );
+						}
+						while( checkLineIntersection( ln, p0, p1 ) )
+						{/* Loop until it no longer hits the entity */
+							hits++;
+							line++;
+							ln.z = ( boxHeight * line );
+						}/* If the entity crosses more than 1 gridbox/lines */
+						for( int i = 1; i < hits; i++ )
+						{
+							grid[indexH+i][indexW].remove( inList->id );
+						}
 					}
 					/* Allocate the new positon */
 					allocateEntity( *inList );
