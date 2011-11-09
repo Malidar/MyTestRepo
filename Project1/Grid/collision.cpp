@@ -69,7 +69,7 @@ bool checkBox3D( BoundingBox box, Vertex3i point )
 	}
 	return false;
 }
-/* Get the sign of the x product */
+/* Get the sign of the x product ( p0 pivot point ) */
 int sign( Vertex3i p0, Vertex3i p1, Vertex3i p2 )
 {
 	//return (p2.x - p0.x) * (p1.y - p0.y) - (p1.x - p0.x) * (p2.y - p0.y);

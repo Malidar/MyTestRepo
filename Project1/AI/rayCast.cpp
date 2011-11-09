@@ -1,13 +1,16 @@
 
 #include <stdio.h>
-#include <math.h>
+
+/* absolute value of a */
+#define ABS(a) (((a)<0) ? -(a) : (a))
+
 /* Bresenham algorithim */
 void rayCast(int x0, int y0, int x1, int y1)
 {
 	int dx, dy, sx, sy, err = 0, e2;
 
-	dx = abs( x1 - x0 );
-	dy = abs( y1 - y0 );
+	dx = ABS( x1 - x0 );
+	dy = ABS( y1 - y0 );
 	if( x0 < x1 )	sx = 1;
 	else					sx = -1;
 	if( y0 < y1 ) sy = 1;
