@@ -215,7 +215,7 @@ void Grid::allocateEntity( Entity& entity )
 	p0 = entity.box.min;
 	p1 = entity.box.max;
 
-	/* If an entety can cross an entire gridbox WIDTH */
+	/* If an entity can cross an entire gridbox WIDTH */
 	if( entity.box.w > boxWidth )
 	{/* Count the number of grid lines it crosses/hits */
 		hits = 0; line = 0;
@@ -236,7 +236,7 @@ void Grid::allocateEntity( Entity& entity )
 			grid[indexH][indexW+i].add( &entity );
 		}
 	}
-	/* If an entety can cross an entire gridbox HEIGHT */
+	/* If an entity can cross an entire gridbox HEIGHT */
 	if( entity.box.h > boxHeight )
 	{/* Count the number of grid lines it crosses/hits */
 		hits = 0; line = 0;
@@ -320,7 +320,7 @@ void Grid::update( /*Entity& entity*/ )
 					p0 = inList->box.min;
 					p1 = inList->box.max;
 
-					/* If an entety can cross an entire gridbox WIDTH */
+					/* If an entity can cross an entire gridbox WIDTH */
 					if( inList->box.w > boxWidth )
 					{/* Count the number of grid lines it crosses/hits */
 						hits = 0; line = 0;
@@ -341,7 +341,7 @@ void Grid::update( /*Entity& entity*/ )
 							grid[indexH][indexW+i].remove( inList->id );
 						}
 					}
-					/* If an entety can cross an entire gridbox HEIGHT */
+					/* If an entity can cross an entire gridbox HEIGHT */
 					if( inList->box.h > boxHeight )
 					{/* Count the number of grid lines it crosses/hits */
 						hits = 0; line = 0;
