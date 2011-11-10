@@ -7,7 +7,7 @@
 /* Bresenham algorithim */
 void rayCast(int x0, int y0, int x1, int y1)
 {
-	int dx, dy, sx, sy, err = 0, e2;
+	int dx, dy, sx, sy, err, e2;
 
 	dx = ABS( x1 - x0 );
 	dy = ABS( y1 - y0 );
@@ -16,7 +16,9 @@ void rayCast(int x0, int y0, int x1, int y1)
 	if( y0 < y1 ) sy = 1;
 	else					sy = -1;
 
-	while( x0 < x1 && y0 < y1 )
+	err = dx-dy;
+
+	while( x0 <= x1 && y0 <= y1 )
 	{
 		printf(" %d , %d \n",x0,y0);
 		e2 = 2 * err;
@@ -32,3 +34,13 @@ void rayCast(int x0, int y0, int x1, int y1)
 		}
 	}
 }
+
+//int main()
+//{
+//	int x0 = 0, y0 = 0,		// x,y
+//			x1 = 5, y1 = 20;		// x,y
+//
+//	rayCast(x0,y0,x1,y1);
+//
+//	return 0;
+//}

@@ -19,12 +19,12 @@ void line3D(int x1, int y1, int z1, int x2, int y2, int z2);
 //point3d(x, y, z)
 //    int x, y, z;
 
-int main()
-{
-	line3d(1,0,1,5,0,8);
-	line3D(1,0,1,5,0,8);
-	return 0;
-}
+//int main()
+//{
+//	line3d(1,0,1,5,0,8);
+//	line3D(1,0,1,5,0,8);
+//	return 0;
+//}
 
 
 void line3d( int x1, int y1, int z1, int x2, int y2, int z2)

@@ -14,9 +14,9 @@ BoundingBox::BoundingBox()
 }
 BoundingBox::BoundingBox( int x, int y, int z, int height, int width, int length )
 {
-	h = height;
-	w = width;
-	l= length;
+	this->height = height;
+	this->width = width;
+	this->length = length;
 	update( x, y, z );
 }
 void BoundingBox::update( int x, int y, int z)
@@ -25,9 +25,9 @@ void BoundingBox::update( int x, int y, int z)
 	min.x = x;
 	min.y = y;
 	min.z = z;
-	max.x = x + w;
-	max.y = y + h;	// y is up
-	max.z = z + l;
+	max.x = x + width;
+	max.y = y + height;	// y is up
+	max.z = z + length;
 	/* Clockwise ABCD (A is in the top left corner) */
 	corners2D[0] = min;
 	corners2D[1].x = max.x;						corners2D[1].z = min.z;		// y is up

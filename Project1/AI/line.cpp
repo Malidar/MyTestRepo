@@ -10,18 +10,18 @@ void f_plotLine(float x0, float y0, float x1, float y1);
 void bresenhamLine2(Point source, Point dest);
 void bresenhamLine(int x0, int y0, int x1, int y1);
 
-//int main()
-//{
-//	int x0 = 0, y0 = 0,		// x,y
-//			x1 = 5, y1 = 8;		// x,y
-//	float xf0 = 0.0f, yf0 = 0.0f,		// x,y
-//				xf1 = 5.9f, yf1 = 8.5f;		// x,y
-//
-//	f_plotLine(xf0,yf0,xf1,yf1);
-//
-//	bresenhamLine(x0,y0,x1,y1);
-//	return 0;
-//}
+int main()
+{
+	int x0 = 0, y0 = 0,		// x,y
+			x1 = 5, y1 = 20;		// x,y
+	float xf0 = 0.0f, yf0 = 0.0f,		// x,y
+				xf1 = 5.0f, yf1 = 20.0f;		// x,y
+
+	f_plotLine(xf0,yf0,xf1,yf1);
+
+	bresenhamLine(x0,y0,x1,y1);
+	return 0;
+}
 
 void f_plotLine(float x0, float y0, float x1, float y1)
 {
@@ -53,7 +53,7 @@ void f_plotLine(float x0, float y0, float x1, float y1)
 void bresenhamLine2(Point source, Point dest)
 {
 	Point nextPoint = source;
-	int dx, dy, sx, sy, err = 0, e2 = 0;
+	int dx, dy, sx, sy, err, e2;
 	bool plot = true;
 
 	dx = abs(dest.x - source.x);					// Delta
@@ -62,6 +62,8 @@ void bresenhamLine2(Point source, Point dest)
 	else					sx = -1;
 	if( source.y < dest.y ) sy = 1;
 	else					sy = -1;
+
+	err = dx-dy;
 
 	while( plot )
 	{
@@ -89,20 +91,23 @@ void bresenhamLine2(Point source, Point dest)
 
 void bresenhamLine(int x0, int y0, int x1, int y1)
 {
-	int dx, dy, sx, sy, err = 0, e2;
+	int dx, dy, sx, sy, err, e2;
 	bool plot = true;
 
 	dx = abs(x1-x0);
 	dy = abs(y1-y0);
+
 	if( x0 < x1 )	sx = 1;
 	else					sx = -1;
 	if( y0 < y1 ) sy = 1;
 	else					sy = -1;
 
+	err = dx-dy;
+
 	while( plot )
 	{
 		printf(" %d , %d \n",x0,y0);
-		if( x0 == x1 && y0 == y1 )  // termination flag
+		if( x0 >= x1 && y0 >= y1 )  // termination flag
 		{
 			plot = false;		// exit loop
 		}

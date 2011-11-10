@@ -15,9 +15,9 @@ struct Vertex3i
 struct BoundingBox
 {
 	/* Data */
-	int h;
-	int w;
-	int l;
+	int height;
+	int width;
+	int length;
 	Vertex3i min;
 	Vertex3i max;
 	Vertex3i corners2D[BOX_2D];
