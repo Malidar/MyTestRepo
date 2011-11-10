@@ -218,7 +218,7 @@ void Grid::allocateEntity( Entity& entity )
 
 	/* If an entity can cross an entire gridbox HEIGHT */
 	for( int i = 1; i < hitsH; i++ )
-	{/* HEIGHT */
+	{/* WIDTH */
 		for( int j = 1; j < hitsW; j++ )
 		{/* If the entity crosses more than 1 gridbox/lines */
 			grid[indexH+i][indexW+j].add( &entity );
@@ -289,7 +289,7 @@ void Grid::update( /*Entity& entity*/ )
 
 					/* If an entity can cross an entire gridbox HEIGHT */
 					for( int i = 1; i < hitsH; i++ )
-					{/* HEIGHT */
+					{/* WIDTH */
 						for( int j = 1; j < hitsW; j++ )
 						{/* If the entity crosses more than 1 gridbox/lines */
 							grid[indexH+i][indexW+j].remove( inList->id );
@@ -309,7 +309,7 @@ bool Grid::checkGrid( Vertex3i position )
 	int indexH = findHeight( position.z );	// y coordinate is up
 	int indexW = findWidth( position.x );
 	/* Search the grid in given indexes for Entities width
-		 position inside theyre bounding box									*/
+		 position inside they're bounding box									*/
 	if( grid[indexH][indexW].collision( position ) )
 		return true;
 	else 

@@ -1,6 +1,9 @@
 #ifndef _COLLISION_H
 #define _COLLISION_H
 
+/* absolute value of a */
+#define ABS(a) (((a)<0) ? -(a) : (a))
+
 /* Constants */
 const int BOX_2D = 4;
 const int BOX_3D = 8;
@@ -33,6 +36,7 @@ bool checkBox2D( BoundingBox box, Vertex3i point );
 bool checkBox3D( BoundingBox box, Vertex3i point );
 int sign( Vertex3i p0, Vertex3i p1, Vertex3i p2 );
 bool checkTriangle( Vertex3i point, Vertex3i p0, Vertex3i p1, Vertex3i p2 );
-bool checkLineIntersection( Vertex3i linePoint0, Vertex3i p0, Vertex3i p1 );
+bool checkLineIntersection( Vertex3i linePoint0, Vertex3i linePoint1, Vertex3i p0, Vertex3i p1 );
+bool rayCast(int &x0, int &y0, int x1, int y1);
 
 #endif

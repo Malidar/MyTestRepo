@@ -85,12 +85,41 @@ bool checkTriangle( Vertex3i point, Vertex3i p0, Vertex3i p1, Vertex3i p2 )
   return ( ( b0 == b1 ) && ( b1 == b2 ) );
 }
 /* Check if a line goes between two points */
-bool checkLineIntersection( Vertex3i linePoint0, Vertex3i p0, Vertex3i p1 )
+bool checkLineIntersection( Vertex3i linePoint0, Vertex3i linePoint1, Vertex3i p0, Vertex3i p1 )
 {
 	bool b0, b1;
-	Vertex3i linePoint1 = linePoint0;
-	linePoint1.z++;										// y is up
 	b0 = sign( linePoint0, linePoint1, p0 ) < 0;
 	b1 = sign( linePoint0, linePoint1, p1 ) < 0;
 	return ( b0 != b1 );
+}
+/* Returns the next point on the line, false if at the end */
+bool rayCast(int &x0, int &y0, int x1, int y1)
+{/* Bresenham algorithim */
+	int dx, dy, sx, sy, err, e2;
+
+	dx = ABS( x1 - x0 );
+	dy = ABS( y1 - y0 );
+	if( x0 < x1 )	sx = 1;
+	else					sx = -1;
+	if( y0 < y1 ) sy = 1;
+	else					sy = -1;
+
+	err = dx-dy;
+	/* Not hit the end of the line */
+	if( x0 <= x1 && y0 <= y1 )
+	{
+		e2 = 2 * err;
+		if( e2 > -dy )
+		{
+			err = err - dy;
+			x0 = x0 + sx;
+		}
+		if( e2 < dx )
+		{
+			err = err + dx;
+			y0 = y0 +sy;
+		}
+		return true;
+	}
+	return false;
 }

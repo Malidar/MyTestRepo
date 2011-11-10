@@ -4,9 +4,9 @@
 /* absolute value of a */
 #define ABS(a) (((a)<0) ? -(a) : (a))
 
-/* Bresenham algorithim */
-void rayCast(int x0, int y0, int x1, int y1)
-{
+/* Returns the next point on the line */
+void rayCast(int &x0, int &y0, int x1, int y1)
+{/* Bresenham algorithim */
 	int dx, dy, sx, sy, err, e2;
 
 	dx = ABS( x1 - x0 );
@@ -18,9 +18,8 @@ void rayCast(int x0, int y0, int x1, int y1)
 
 	err = dx-dy;
 
-	while( x0 <= x1 && y0 <= y1 )
+	if( x0 <= x1 && y0 <= y1 )
 	{
-		printf(" %d , %d \n",x0,y0);
 		e2 = 2 * err;
 		if( e2 > -dy )
 		{
