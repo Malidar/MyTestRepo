@@ -37,6 +37,6 @@ bool checkBox3D( BoundingBox box, Vertex3i point );
 int sign( Vertex3i p0, Vertex3i p1, Vertex3i p2 );
 bool checkTriangle( Vertex3i point, Vertex3i p0, Vertex3i p1, Vertex3i p2 );
 bool checkLineIntersection( Vertex3i linePoint0, Vertex3i linePoint1, Vertex3i p0, Vertex3i p1 );
-bool rayCast(int &x0, int &y0, int x1, int y1);
+bool rayStep(int &x0, int &y0, int x1, int y1);
 
 #endif

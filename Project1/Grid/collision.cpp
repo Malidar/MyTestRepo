@@ -93,7 +93,7 @@ bool checkLineIntersection( Vertex3i linePoint0, Vertex3i linePoint1, Vertex3i p
 	return ( b0 != b1 );
 }
 /* Returns the next point on the line, false if at the end */
-bool rayCast(int &x0, int &y0, int x1, int y1)
+bool rayStep(int &x0, int &y0, int x1, int y1)
 {/* Bresenham algorithim */
 	int dx, dy, sx, sy, err, e2;
 

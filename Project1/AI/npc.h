@@ -5,6 +5,7 @@
 
 #include "ENTITY_BASE.H"
 #include "FLAG.H"
+#include "GRID.H"
 
 struct Node
 {
@@ -31,7 +32,8 @@ class Npc: public Entity_base
 private:
 	int health;
 	int ammo;
-	int range;
+	int range;							// View range
+	int scope;							// View scope / width
 	//int bulletDamage;
 	//int bulletSpread;
 	//active animation
@@ -45,6 +47,7 @@ private:
 	// Entity3f* link;			// waypoints...
 	PriQueue* priHIGH;			// Priority Queues keeping tasks
 	PriQueue* priLOW;
+	//PriQueue* link;
 
 protected:
 	Npc();
@@ -53,6 +56,7 @@ protected:
 	Entity3f getPositon();
 	void setWaypoint(Entity3f wp);
 	// void addWaypoint(Entity3f wp);
+	// getWaypoint();
 	/* Flag functions */
 	//bool getFlag(int bit);
 	//void setFlag(int bit);

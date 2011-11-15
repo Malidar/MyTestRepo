@@ -156,10 +156,22 @@ void Npc::update()
 
 int Npc::percieve()
 {
+	int linesH, linesW;
+	Entity3f pointRange, scope, trianglep1, trianglep2;
+	// r = a + tb Make it so that |facing| = 1
+	//pointRange = position + range * facing;
+
+	while( 1 /* checkLineIntersection() */ ) { linesH++; }
+	while( 1 /* checkLineIntersection() */ ) { linesW++; }
+
+	while( 1 /* rayStep() */ )
+	{
+		//world.checkGrid(position);
+	}
 	// use a triangle check to represent the view. if something is inside:
 	// rayCast to the entity to  see if there are no obstacles
 	// if object hit return proper action
-	// SEE_ENEMY / SEE_FRIENDLY / OBSTACLE / 
+	// SEE_ENEMY / SEE_FRIENDLY / OBSTACLE /
 	return 0;
 }
 

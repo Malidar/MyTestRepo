@@ -5,7 +5,7 @@
 #define ABS(a) (((a)<0) ? -(a) : (a))
 
 /* Returns the next point on the line */
-void rayCast(int &x0, int &y0, int x1, int y1)
+void i_StepLine(int &x0, int &y0, int x1, int y1)
 {/* Bresenham algorithim */
 	int dx, dy, sx, sy, err, e2;
 
@@ -34,6 +34,24 @@ void rayCast(int &x0, int &y0, int x1, int y1)
 	}
 }
 
+void f_StepLine(float &x0, float &y0, float x1, float y1)
+{
+	float y, m, b;					// y = mx + b
+	float x = 0.1f;					// step
+	bool plot = true;
+	/* Slope */
+	m = ( y1 - y0 ) / ( x1 - x0 );
+	/* Intercept */
+	b = y0 - ( m * x0);
+	/* y = mx + b*/
+	y = ( ( m * ( x0 + x ) ) + b - (int)( x0 + x ) );	// step
+
+	if( x0 <= x1 && y0 <= y1 )
+	{
+		x0 = x0 + x;
+		y0 = y0 + y;	
+	}
+}
 //int main()
 //{
 //	int x0 = 0, y0 = 0,		// x,y
