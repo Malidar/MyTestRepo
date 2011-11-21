@@ -157,13 +157,35 @@ void Npc::update()
 int Npc::percieve()
 {
 	int linesH, linesW;
-	Entity3f pointRange, scope, trianglep1, trianglep2;
+	float dx, dz;
+	Entity3f pointRange, distance, normal0, normal1 scope, trianglept0, trianglept1;
 	// r = a + tb Make it so that |facing| = 1
-	//pointRange = position + range * facing;
+	//pointRange = position + distance; distance = range * facing
+
+	/* Length of view */
+	distance.x = range * facing.x;
+	distance.z = range * facing.z;
+	/* Find the maximum range point */
+	pointRange.x = position.x + distance.x;	// FIX the position is not centered
+	pointRange.z = position.z + distance.z;
+	/* Find the normals to the facing vector */
+	dx = distance.x - pointRange.x;
+	dz = distance.z - pointRange.z;
+	normal0.x = dx;		normal0.z = -dz;
+	normal1.x = -dx;	normal1.z = dz;
+	/* Find the the points defining the scale of the view
+		 In a Triangle ABC this would be B and C */
+	trianglept0.x = ( normal0.x * scope / 2 ) + pointRange.x;
+	trianglept0.z = ( normal0.z * scope / 2 ) + pointRange.z;
+	
+	trianglept1.x = ( normal1.x * scope / 2 ) + pointRange.x;
+	trianglept1.z = ( normal1.z * scope / 2 ) + pointRange.z;
+
+	/*   */
 
 	while( 1 /* checkLineIntersection() */ ) { linesH++; }
 	while( 1 /* checkLineIntersection() */ ) { linesW++; }
-
+	
 	while( 1 /* rayStep() */ )
 	{
 		//world.checkGrid(position);

@@ -32,8 +32,8 @@ class Npc: public Entity_base
 private:
 	int health;
 	int ammo;
-	int range;							// View range
-	int scope;							// View scope / width
+	float range;							// View range
+	float scope;							// View scope angle
 	//int bulletDamage;
 	//int bulletSpread;
 	//active animation
