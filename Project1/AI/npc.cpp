@@ -157,8 +157,13 @@ void Npc::update()
 int Npc::percieve()
 {
 	int linesH, linesW;
+	int gridPositionH, gridPositionW;
+	int gridPointH, gridPointW;
 	float dx, dz;
-	Entity3f pointRange, distance, normal0, normal1 scope, trianglept0, trianglept1;
+	Entity3f pointRange, distance, 
+		normal0, normal1 
+		scope, trianglept0, trianglept1
+		dist0, dist1;
 	// r = a + tb Make it so that |facing| = 1
 	//pointRange = position + distance; distance = range * facing
 
@@ -181,11 +186,49 @@ int Npc::percieve()
 	trianglept1.x = ( normal1.x * scope / 2 ) + pointRange.x;
 	trianglept1.z = ( normal1.z * scope / 2 ) + pointRange.z;
 
-	/*   */
+	/* Find the point furthest away from position */
+	dist0.x = position.x - trianglept0.x;
+	dist0.z = position.z - trianglept0.z;
+	dist1.x = position.x - trianglept1.x;
+	dist1.z = position.z - trianglept1.z;
 
-	while( 1 /* checkLineIntersection() */ ) { linesH++; }
-	while( 1 /* checkLineIntersection() */ ) { linesW++; }
+	/* trianglept0 favored / furthest away */
+	if( SIGN( dist0.z ) > SIGN( dist1.z ) )	// z-axis:
+	{
+		gridPointH = world.findHeight( trianglept0.z );
+	}
+	/* trianglept1 favored / furthest away */
+	else
+	{
+		gridPointH = world.findHeight( trianglept1.z );
+	}
+	if( SIGN( dist0.x ) > SIGN( dist1.x ) )	// x-axis:
+	{
+		gridPointW = world.findWidth( trianglept0.x );
+	}
+	/* trianglept1 favored / furthest away */
+	else
+	{
+		gridPointW = world.findWidth( trianglept1.x );
+	}
+
+	/* Find the gridPosition of this.position */
+	gridPositionH = world.findHeight( position.z );
+	gridPositionW = world.findWidth( position.x );
+
+	/* Count the number of grid lines it the triangle crosses */
+	linesH = gridPointH - gridPositionH;
+	linesW = gridPointW - gridPositionH;
 	
+	/* Check the grid cells the triangle intersect with */
+	for(int i = 0; i < linesH; i++)
+	{
+		for(int j = 0; i < linesw; i++)
+		{
+
+		}
+	}
+
 	while( 1 /* rayStep() */ )
 	{
 		//world.checkGrid(position);

@@ -244,7 +244,7 @@ void Grid::update( /*Entity& entity*/ )
 	}
 	*/
 		
-	// Check if it is outside the grid box			//If above this is not needed, because it is checked beforehand.
+	// Check if it is outside the grid cell			//If above this is not needed, because it is checked beforehand.
 	// if it is remove it and allocate it again
 	// OR check each corner of the bounding box ....
 
