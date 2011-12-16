@@ -164,13 +164,13 @@ int Npc::percieve()
 		normal0, normal1 
 		scope, trianglept0, trianglept1
 		dist0, dist1;
-	// r = a + tb Make it so that |facing| = 1
+	// r = a + t*b Make it so that |facing| = 1
 	//pointRange = position + distance; distance = range * facing
 
-	/* Length of view */
+	/* View Distance ( t*b ) */
 	distance.x = range * facing.x;
 	distance.z = range * facing.z;
-	/* Find the maximum range point */
+	/* Find the maximum range point ( r = a + t*b ) */
 	pointRange.x = position.x + distance.x;	// FIX the position is not centered
 	pointRange.z = position.z + distance.z;
 	/* Find the normals to the facing vector */
