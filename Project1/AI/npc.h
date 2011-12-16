@@ -5,7 +5,7 @@
 
 #include "ENTITY_BASE.H"
 #include "FLAG.H"
-#include "GRID.H"
+//#include "GRID.H"
 
 struct Node
 {

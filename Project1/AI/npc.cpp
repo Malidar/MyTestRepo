@@ -161,8 +161,8 @@ int Npc::percieve()
 	int gridPointH, gridPointW;
 	float dx, dz;
 	Entity3f pointRange, distance, 
-		normal0, normal1 
-		scope, trianglept0, trianglept1
+		normal0, normal1, 
+		trianglept0, trianglept1,
 		dist0, dist1;
 	// r = a + t*b Make it so that |facing| = 1
 	//pointRange = position + distance; distance = range * facing
@@ -192,29 +192,27 @@ int Npc::percieve()
 	dist1.x = position.x - trianglept1.x;
 	dist1.z = position.z - trianglept1.z;
 
-	/* trianglept0 favored / furthest away */
-	if( SIGN( dist0.z ) > SIGN( dist1.z ) )	// z-axis:
-	{
-		gridPointH = world.findHeight( trianglept0.z );
-	}
-	/* trianglept1 favored / furthest away */
-	else
-	{
-		gridPointH = world.findHeight( trianglept1.z );
-	}
-	if( SIGN( dist0.x ) > SIGN( dist1.x ) )	// x-axis:
-	{
-		gridPointW = world.findWidth( trianglept0.x );
-	}
-	/* trianglept1 favored / furthest away */
-	else
-	{
-		gridPointW = world.findWidth( trianglept1.x );
-	}
-
-	/* Find the gridPosition of this.position */
-	gridPositionH = world.findHeight( position.z );
-	gridPositionW = world.findWidth( position.x );
+	
+	//if( SIGN( dist0.z ) > SIGN( dist1.z ) )	// z-axis:
+	//{/* trianglept0 favored / furthest away */
+	//	gridPointH = world.findHeight( trianglept0.z );
+	//}
+	//else
+	//{/* trianglept1 favored / furthest away */
+	//	gridPointH = world.findHeight( trianglept1.z );
+	//}
+	//if( SIGN( dist0.x ) > SIGN( dist1.x ) )	// x-axis:
+	//{/* trianglept0 favored / furthest away */
+	//	gridPointW = world.findWidth( trianglept0.x );
+	//}
+	//else
+	//{	/* trianglept1 favored / furthest away */
+	//	//gridPointW = world.findWidth( trianglept1.x );
+	//}
+	//
+	///* Find the gridPosition of this.position */
+	//gridPositionH = world.findHeight( position.z );
+	//gridPositionW = world.findWidth( position.x );
 
 	/* Count the number of grid lines it the triangle crosses */
 	linesH = gridPointH - gridPositionH;
@@ -223,9 +221,9 @@ int Npc::percieve()
 	/* Check the grid cells the triangle intersect with */
 	for(int i = 0; i < linesH; i++)
 	{
-		for(int j = 0; i < linesw; i++)
+		for(int j = 0; i < linesW; i++)
 		{
-
+			
 		}
 	}
 
