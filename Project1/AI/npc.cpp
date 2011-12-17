@@ -159,7 +159,8 @@ int Npc::percieve()
 	int linesH, linesW;
 	int gridPositionH, gridPositionW;
 	int gridPointH, gridPointW;
-	float dx, dz;
+	int upperLeftCornerH, upperLeftCornerW;
+	float dx, dz; // delta
 	Entity3f pointRange, distance, 
 		normal0, normal1, 
 		trianglept0, trianglept1,
@@ -171,7 +172,7 @@ int Npc::percieve()
 	distance.x = range * facing.x;
 	distance.z = range * facing.z;
 	/* Find the maximum range point ( r = a + t*b ) */
-	pointRange.x = position.x + distance.x;	// FIX the position is not centered
+	pointRange.x = position.x + distance.x;	// FIXED the position is not centered
 	pointRange.z = position.z + distance.z;
 	/* Find the normals to the facing vector */
 	dx = distance.x - pointRange.x;
@@ -179,7 +180,7 @@ int Npc::percieve()
 	normal0.x = dx;		normal0.z = -dz;
 	normal1.x = -dx;	normal1.z = dz;
 	/* Find the the points defining the scale of the view
-		 In a Triangle ABC this would be B and C */
+		 In a Triangle ABC(A is pos) this would be B and C */
 	trianglept0.x = ( normal0.x * scope / 2 ) + pointRange.x;
 	trianglept0.z = ( normal0.z * scope / 2 ) + pointRange.z;
 	
@@ -218,17 +219,30 @@ int Npc::percieve()
 	linesH = gridPointH - gridPositionH;
 	linesW = gridPointW - gridPositionH;
 	
+	/* Find the upper left corner */
+	if( gridPositionH < gridPointH )
+		upperLeftCornerH = gridPositionH;
+	else
+		upperLeftCornerH = gridPointH;
+	if( gridPositionW < gridPointW )
+		upperLeftCornerW = gridPositionW;
+	else
+		upperLeftCornerW = gridPointW;
+
 	/* Check the grid cells the triangle intersect with */
 	for(int i = 0; i < linesH; i++)
 	{
 		for(int j = 0; i < linesW; i++)
 		{
-			
+			//upperLeftCornerH+i;
+			// Create func to check each corner of grid cell to see if it have a
+			// point within the triangle(fov)
+			// save entity positions sorted
 		}
 	}
 
 	while( 1 /* rayStep() */ )
-	{
+	{/* Ceck entity positions/ref to determin action */
 		//world.checkGrid(position);
 	}
 	// use a triangle check to represent the view. if something is inside:

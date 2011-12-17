@@ -74,7 +74,7 @@ Entity* EntityList::get( Entity* entity )
 	}
 	return NULL;
 }
-Entity* EntityList::get( Vector3f position )
+Entity* EntityList::get( Vertex3i position )
 {
 	Node* tempNode;
 	tempNode = head->nextNode;
@@ -112,7 +112,7 @@ bool EntityList::remove(int id)
 	return false;
 }
 /* See if any of the entities in the list collides with the position */
-bool EntityList::collision( Vector3f position )
+bool EntityList::collision( Vertex3i position )
 {
 	Node* tempNode;
 	tempNode = head->nextNode;
@@ -171,8 +171,8 @@ int Grid::findHeight( float yCoord )
 //{
 //	int indexH, indexW;
 //	Volume entVol;
-//	Vector3f entPos;
-//	Vector3f corners[4];	// the bounding box 4 vertexes A,B,C and D
+//	Vertex3i entPos;
+//	Vertex3i corners[4];	// the bounding box 4 vertexes A,B,C and D
 //	entPos = entity.position;
 //	entVol = entity.volume;
 //	/* Clockwise ABCD (A is in the top left corner) */
@@ -200,8 +200,8 @@ void Grid::allocateEntity( Entity& entity )
 	int indexH, indexW, 
 			boxWidth, boxHeight,
 			hitsW, hitsH;
-	Vector3f p0, p1;
-	Vector3f* box2D;
+	Vertex3i p0, p1;
+	Vertex3i* box2D;
 	/* Get the 4 corners from the bounding box */
 	box2D = entity.box.corners2D;
 
@@ -262,7 +262,7 @@ void Grid::update( /*Entity& entity*/ )
 			hitsW, hitsH;
 	Entity* inList;
 	BoundingBox oldBox;
-	Vector3f* box2D;
+	Vertex3i* box2D;
 	/* Run trough the entire grid */
 	for( int i = 0; i < divh; i++ )
 	{
@@ -312,7 +312,7 @@ void Grid::update( /*Entity& entity*/ )
 	}
 }
 /* Checks if an Entity is in a given position */
-bool Grid::checkGrid( Vector3f position )
+bool Grid::checkGrid( Vertex3i position )
 {
 	int indexH = findHeight( position.z );	// y coordinate is up
 	int indexW = findWidth( position.x );

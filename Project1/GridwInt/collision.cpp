@@ -2,7 +2,7 @@
 #include "COLLISION.H"
 
 /* STRUCT constructor */
-Vector3f::Vector3f()
+Vertex3i::Vertex3i()
 {
 	x = 0; 
 	y = 0; 
@@ -12,7 +12,7 @@ Vector3f::Vector3f()
 BoundingBox::BoundingBox()
 {
 }
-BoundingBox::BoundingBox( float x, float y, float z, int height, int width, int length )
+BoundingBox::BoundingBox( int x, int y, int z, int height, int width, int length )
 {
 	this->height = height;
 	this->width = width;
@@ -35,7 +35,7 @@ BoundingBox::BoundingBox( float x, float y, float z, int height, int width, int 
 //	corners2D[2] = max;
 //	corners2D[3].x = min.x;						corners2D[3].z = max.z;
 //}
-void BoundingBox::update( float x, float y, float z)
+void BoundingBox::update( int x, int y, int z)
 {
 	/* Expect middle of bbox as xyz */
 	/* Calculate min and max coordinates */
@@ -51,15 +51,15 @@ void BoundingBox::update( float x, float y, float z)
 	corners2D[2] = max;
 	corners2D[3].x = min.x;						corners2D[3].z = max.z;
 }
-void BoundingBox::update( Vector3f position )
+void BoundingBox::update( Vertex3i position )
 {
 	update( position.x, position.y, position.z );
 }
 /* Check if a point is inside a box */
-bool checkBox2D( BoundingBox box, Vector3f point )
+bool checkBox2D( BoundingBox box, Vertex3i point )
 {
-	Vector3f min = box.min;
-	Vector3f max = box.max;
+	Vertex3i min = box.min;
+	Vertex3i max = box.max;
 	if( point.x < max.x && point.x > min.x )
 	{	/* In this case y is up! */
 		if( point.z < max.z && point.z > min.z )
@@ -70,10 +70,10 @@ bool checkBox2D( BoundingBox box, Vector3f point )
 	return false;
 }
 /* Check if a point is inside a box */
-bool checkBox3D( BoundingBox box, Vector3f point )
+bool checkBox3D( BoundingBox box, Vertex3i point )
 {
-	Vector3f min = box.min;
-	Vector3f max = box.max;
+	Vertex3i min = box.min;
+	Vertex3i max = box.max;
 	if( point.x < max.x && point.x > min.x )
 	{
 		if( point.y < max.y && point.y > min.y )
@@ -87,13 +87,13 @@ bool checkBox3D( BoundingBox box, Vector3f point )
 	return false;
 }
 /* Get the sign of the x product ( p0 pivot point ) */
-int sign( Vector3f p0, Vector3f p1, Vector3f p2 )
+int sign( Vertex3i p0, Vertex3i p1, Vertex3i p2 )
 {
 	//return (p2.x - p0.x) * (p1.y - p0.y) - (p1.x - p0.x) * (p2.y - p0.y);
 	return (p2.x - p0.x) * (p1.z - p0.z) - (p1.x - p0.x) * (p2.z - p0.z);
 }
 /* Check if a point is inside a triangle */
-bool checkTriangle( Vector3f point, Vector3f p0, Vector3f p1, Vector3f p2 )
+bool checkTriangle( Vertex3i point, Vertex3i p0, Vertex3i p1, Vertex3i p2 )
 {
 	bool b0, b1, b2;
   b0 = sign( p1, p0, point ) < 0;
@@ -102,7 +102,7 @@ bool checkTriangle( Vector3f point, Vector3f p0, Vector3f p1, Vector3f p2 )
   return ( ( b0 == b1 ) && ( b1 == b2 ) );
 }
 /* Check if a line goes between two points */
-bool checkLineIntersection( Vector3f p0, Vector3f p1, Vector3f linePoint0, Vector3f linePoint1 )
+bool checkLineIntersection( Vertex3i p0, Vertex3i p1, Vertex3i linePoint0, Vertex3i linePoint1 )
 {
 	bool b0, b1;
 	b0 = sign( linePoint0, linePoint1, p0 ) < 0;

@@ -9,10 +9,10 @@ const int BOX_2D = 4;
 const int BOX_3D = 8;
 
 /* STRUCTS */
-struct Vertex3i
+struct Vector3f
 {
-	int x,y,z;
-	Vertex3i();
+	float x,y,z;
+	Vector3f();
 };
 
 struct BoundingBox
@@ -21,22 +21,21 @@ struct BoundingBox
 	int height;
 	int width;
 	int length;
-	Vertex3i min;
-	Vertex3i max;
-	Vertex3i corners2D[BOX_2D];
-	//Vertex3i corners3D[BOX_3D];
+	Vector3f min;
+	Vector3f max;
+	Vector3f corners2D[BOX_2D];
 	/* Functions */
 	BoundingBox();
-	BoundingBox( int x, int y, int z, int height, int width, int length );
-	void update( int x, int y, int z );
-	void update( Vertex3i position );
+	BoundingBox( float x, float y, float z, int height, int width, int length );
+	void update( float x, float y, float z );
+	void update( Vector3f position );
 };
 
-bool checkBox2D( BoundingBox box, Vertex3i point );
-bool checkBox3D( BoundingBox box, Vertex3i point );
-int sign( Vertex3i p0, Vertex3i p1, Vertex3i p2 );
-bool checkTriangle( Vertex3i point, Vertex3i p0, Vertex3i p1, Vertex3i p2 );
-bool checkLineIntersection( Vertex3i p0, Vertex3i p1, Vertex3i linePoint0, Vertex3i linePoint1 );
+bool checkBox2D( BoundingBox box, Vector3f point );
+bool checkBox3D( BoundingBox box, Vector3f point );
+int sign( Vector3f p0, Vector3f p1, Vector3f p2 );
+bool checkTriangle( Vector3f point, Vector3f p0, Vector3f p1, Vector3f p2 );
+bool checkLineIntersection( Vector3f p0, Vector3f p1, Vector3f linePoint0, Vector3f linePoint1 );
 bool rayStep(int &x0, int &y0, int x1, int y1);
 
 #endif

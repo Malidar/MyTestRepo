@@ -13,8 +13,8 @@ class Entity							//
 {													//
 public:										//
 	int id;									//
-	Vector3f position;			//
-	Vector3f oldPosition;		//
+	Vertex3i position;			//
+	Vertex3i oldPosition;		//
 	Volume volume;					//
 	BoundingBox box;				//
 };												//
@@ -41,9 +41,9 @@ public:
 	void add( Entity* newEntity );
 	Entity* get();
 	Entity* get( Entity* entity );
-	Entity* get( Vector3f position );
+	Entity* get( Vertex3i position );
 	bool remove( int id );
-	bool collision( Vector3f position );
+	bool collision( Vertex3i position );
 };
 
 class Grid
@@ -64,6 +64,6 @@ public:
 	int findHeight( float yCoord );
 	void allocateEntity( Entity& entity );
 	void update();
-	bool checkGrid( Vector3f position );
+	bool checkGrid( Vertex3i position );
 };
 #endif
