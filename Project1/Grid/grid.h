@@ -60,6 +60,8 @@ public:
 	~Grid();
 	int findWidth( int xCoord );
 	int findHeight( int yCoord );
+	int findWidth( float xCoord );
+	int findHeight( float yCoord );
 	void allocateEntity( Entity& entity );
 	void update();
 	bool checkGrid( Vertex3i position );

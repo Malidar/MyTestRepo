@@ -158,6 +158,14 @@ int Grid::findHeight( int yCoord )
 {
 	return ( ( yCoord * divh ) / height );
 }
+int Grid::findWidth( float xCoord )
+{
+	return ( ( xCoord / width ) * divw );
+}
+int Grid::findHeight( float yCoord )
+{
+	return ( ( yCoord / height ) * divh );
+}
 ///* Allocate an Entity in the grid */
 //void Grid::allocateEntity( Entity& entity )
 //{

@@ -19,15 +19,32 @@ BoundingBox::BoundingBox( int x, int y, int z, int height, int width, int length
 	this->length = length;
 	update( x, y, z );
 }
+//void BoundingBox::update( int x, int y, int z)
+//{
+//	/* Expect upper left corner as xyz */
+//	/* Calculate min and max coordinates */
+//	min.x = x;
+//	min.y = y;
+//	min.z = z;
+//	max.x = x + width;
+//	max.y = y + height;	// y is up
+//	max.z = z + length;
+//	/* Clockwise ABCD (A is in the top left corner) */
+//	corners2D[0] = min;
+//	corners2D[1].x = max.x;						corners2D[1].z = min.z;		// y is up
+//	corners2D[2] = max;
+//	corners2D[3].x = min.x;						corners2D[3].z = max.z;
+//}
 void BoundingBox::update( int x, int y, int z)
 {
+	/* Expect middle of bbox as xyz */
 	/* Calculate min and max coordinates */
-	min.x = x;
-	min.y = y;
-	min.z = z;
-	max.x = x + width;
-	max.y = y + height;	// y is up
-	max.z = z + length;
+	min.x = x - ( width / 2 );
+	min.y = y - ( height / 2 );
+	min.z = z - ( length / 2 );
+	max.x = x + ( width / 2 );
+	max.y = y + ( height / 2 );	// y is up
+	max.z = z + ( length / 2 );
 	/* Clockwise ABCD (A is in the top left corner) */
 	corners2D[0] = min;
 	corners2D[1].x = max.x;						corners2D[1].z = min.z;		// y is up
