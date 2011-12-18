@@ -87,26 +87,26 @@ bool checkBox3D( BoundingBox box, Vector3f point )
 	return false;
 }
 /* Get the sign of the x product ( p0 pivot point ) */
-int sign( Vector3f p0, Vector3f p1, Vector3f p2 )
+bool sign( Vector3f p0, Vector3f p1, Vector3f p2 )
 {
 	//return (p2.x - p0.x) * (p1.y - p0.y) - (p1.x - p0.x) * (p2.y - p0.y);
-	return (p2.x - p0.x) * (p1.z - p0.z) - (p1.x - p0.x) * (p2.z - p0.z);
+	return ( (p2.x - p0.x) * (p1.z - p0.z) - (p1.x - p0.x) * (p2.z - p0.z) ) > 0;
 }
 /* Check if a point is inside a triangle */
 bool checkTriangle( Vector3f point, Vector3f p0, Vector3f p1, Vector3f p2 )
 {
 	bool b0, b1, b2;
-  b0 = sign( p1, p0, point ) < 0;
-  b1 = sign( p2, p1, point ) < 0;
-  b2 = sign( p0, p2, point ) < 0;
+  b0 = sign( p1, p0, point );
+  b1 = sign( p2, p1, point );
+  b2 = sign( p0, p2, point );
   return ( ( b0 == b1 ) && ( b1 == b2 ) );
 }
 /* Check if a line goes between two points */
 bool checkLineIntersection( Vector3f p0, Vector3f p1, Vector3f linePoint0, Vector3f linePoint1 )
 {
 	bool b0, b1;
-	b0 = sign( linePoint0, linePoint1, p0 ) < 0;
-	b1 = sign( linePoint0, linePoint1, p1 ) < 0;
+	b0 = sign( linePoint0, linePoint1, p0 );
+	b1 = sign( linePoint0, linePoint1, p1 );
 	return ( b0 != b1 );
 }
 /* Returns the next point on the line, false if at the end */

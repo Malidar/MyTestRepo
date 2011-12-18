@@ -118,7 +118,8 @@ void Npc::chooseAction()
 {
 	if( !priHIGH->empty() )
 	{
-		// stop current, start high
+		/* stop current, start high */
+		// save/push current action?
 		currentAction = priHIGH->pop();
 	}
 	else
@@ -193,7 +194,6 @@ int Npc::percieve()
 	dist1.x = position.x - trianglept1.x;
 	dist1.z = position.z - trianglept1.z;
 
-	
 	//if( SIGN( dist0.z ) > SIGN( dist1.z ) )	// z-axis:
 	//{/* trianglept0 favored / furthest away */
 	//	gridPointH = world.findHeight( trianglept0.z );
@@ -245,6 +245,9 @@ int Npc::percieve()
 	{/* Ceck entity positions/ref to determin action */
 		//world.checkGrid(position);
 	}
+
+	// CREATE evaluation
+
 	// use a triangle check to represent the view. if something is inside:
 	// rayCast to the entity to  see if there are no obstacles
 	// if object hit return proper action

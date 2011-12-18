@@ -33,7 +33,7 @@ struct BoundingBox
 
 bool checkBox2D( BoundingBox box, Vector3f point );
 bool checkBox3D( BoundingBox box, Vector3f point );
-int sign( Vector3f p0, Vector3f p1, Vector3f p2 );
+bool sign( Vector3f p0, Vector3f p1, Vector3f p2 );
 bool checkTriangle( Vector3f point, Vector3f p0, Vector3f p1, Vector3f p2 );
 bool checkLineIntersection( Vector3f p0, Vector3f p1, Vector3f linePoint0, Vector3f linePoint1 );
 bool rayStep(int &x0, int &y0, int x1, int y1);
