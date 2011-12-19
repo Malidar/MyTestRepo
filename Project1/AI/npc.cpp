@@ -147,7 +147,7 @@ void Npc::update()
 	int newAction;
 	// Precieve MAKE FUNC
 	// register flags for new action
-	newAction = percieve();
+	newAction = perceive();
 	if( newAction )
 	{
 		addAction( newAction );
@@ -155,7 +155,7 @@ void Npc::update()
 	chooseAction();
 }
 
-int Npc::percieve()
+int Npc::perceive()
 {
 	int linesH, linesW;
 	int gridPositionH, gridPositionW;
@@ -194,6 +194,7 @@ int Npc::percieve()
 	dist1.x = position.x - trianglept1.x;
 	dist1.z = position.z - trianglept1.z;
 
+	/* Commented because world is not included: */
 	//if( SIGN( dist0.z ) > SIGN( dist1.z ) )	// z-axis:
 	//{/* trianglept0 favored / furthest away */
 	//	gridPointH = world.findHeight( trianglept0.z );

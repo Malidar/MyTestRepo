@@ -74,23 +74,23 @@ Entity* EntityList::get( Entity* entity )
 	}
 	return NULL;
 }
-Entity* EntityList::get( Vector3f position )
-{
-	Node* tempNode;
-	tempNode = head->nextNode;
-	// y is up
-		while( tempNode != tail )
-		{
-			if( tempNode->entity->position.x == position.x && 
-					tempNode->entity->position.z == position.z )
-			{
-				return tempNode->entity;
-			}
-			tempNode = tempNode->nextNode;
-		}
-	return NULL;
-}
-bool EntityList::remove(int id)
+//Entity* EntityList::get( Vector3f position )
+//{
+//	Node* tempNode;
+//	tempNode = head->nextNode;
+//	// y is up
+//		while( tempNode != tail )
+//		{
+//			if( tempNode->entity->position.x == position.x && 
+//					tempNode->entity->position.z == position.z )
+//			{
+//				return tempNode->entity;
+//			}
+//			tempNode = tempNode->nextNode;
+//		}
+//	return NULL;
+//}
+bool EntityList::remove( int id )
 {
 	Node* tempNode;
 	Node* tempNodeNext;

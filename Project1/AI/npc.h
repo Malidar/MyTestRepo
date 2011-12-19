@@ -32,8 +32,8 @@ class Npc: public Entity_base
 private:
 	int health;
 	int ammo;
-	float range;							// View range
-	float scope;							// View scope angle
+	int range;							// View range
+	int scope;							// View scope ( an angle sould probably be used istead )
 	//int bulletDamage;
 	//int bulletSpread;
 	//active animation
@@ -68,7 +68,7 @@ protected:
 	void chooseAction();
 	void doAction(int action);
 	void update();
-	int percieve();
+	int perceive();
 	/* Tasks/schemes... */
 	void taskIdle();
 	void taskMove();
